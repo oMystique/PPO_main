@@ -26,7 +26,6 @@ bool CAnimationKit::init(cocos2d::String const & animPath, cocos2d::Rect const &
 	}
 	auto animation = Animation::createWithSpriteFrames(animFrames, delay);
 	m_action = Animate::create(animation);
-	m_action->retain();
 	if (repeat)
 	{
 		m_action = RepeatForever::create(m_action);

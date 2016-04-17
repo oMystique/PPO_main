@@ -19,15 +19,27 @@
     <Filter Include="src\AnimationKit">
       <UniqueIdentifier>{28574955-1a00-49da-9916-7fac2e42083a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ui">
+      <UniqueIdentifier>{55ecf06d-4493-43c1-a4a0-ea45563bf7bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ui\Sneaky">
+      <UniqueIdentifier>{acd00de4-972d-4735-a1f8-efc58150646a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ui\ui">
+      <UniqueIdentifier>{ea5a0d37-ade6-406b-8d42-e0286e80482c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ui\ui\ToolBar">
+      <UniqueIdentifier>{9cf1222a-2134-4d75-8db4-638e203a4926}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ui\ui\ToolBarManager">
+      <UniqueIdentifier>{22b054d3-91b3-421f-b20a-99e5d138a3d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\player.cpp">
@@ -39,15 +51,33 @@
     <ClCompile Include="..\Classes\AnimationKit.cpp">
       <Filter>src\AnimationKit</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SneakyInput\SneakyButton.cpp">
+      <Filter>src\ui\Sneaky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SneakyInput\SneakyButtonSkinnedBase.cpp">
+      <Filter>src\ui\Sneaky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SneakyInput\SneakyJoystick.cpp">
+      <Filter>src\ui\Sneaky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SneakyInput\SneakyJoystickSkinnedBase.cpp">
+      <Filter>src\ui\Sneaky</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Toolbar.cpp">
+      <Filter>src\ui\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ToolbarManager.cpp">
+      <Filter>src\ui\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\player.h">
@@ -61,6 +91,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ObjectKeeper.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SneakyInput\SneakyButton.h">
+      <Filter>src\ui\Sneaky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SneakyInput\SneakyButtonSkinnedBase.h">
+      <Filter>src\ui\Sneaky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SneakyInput\SneakyJoystick.h">
+      <Filter>src\ui\Sneaky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SneakyInput\SneakyJoystickSkinnedBase.h">
+      <Filter>src\ui\Sneaky</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Toolbar.h">
+      <Filter>src\ui\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ToolbarManager.h">
+      <Filter>src\ui\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,14 +1,16 @@
 #pragma once
 #include "Entities.h"
 #include "AnimationKit.h"
+
 USING_NS_CC;
 
 enum class PlayerState
 {
-	stay,
 	moveLeft,
 	moveRight,
-	fight
+	stay,
+	fight,
+	none
 };
 
 enum class PlayerFightType
@@ -28,19 +30,27 @@ class CPlayer : public CEntities {
 public:
 
 	static CPlayer * create();
-	void move(int directionParam);
+	void move(PlayerState const &state);
 	void idle();
+	void knivesOperate();
+	void attack();
+	void frostOperate();
+	void fireOperate();
 
 	void update() override;
 private:
 	void setAnimation(CAnimationKit *kit);
+	void initPlayer();
 private:
 	~CPlayer();
 	ObjectKeeper<CAnimationKit> m_idleAnimation;
 	ObjectKeeper<CAnimationKit> m_runAnimation;
+	ObjectKeeper<CAnimationKit> m_kniveOpAnimation;
+	ObjectKeeper<CAnimationKit> m_attackAnimation;
+	ObjectKeeper<CAnimationKit> m_animFrost;
+	ObjectKeeper<CAnimationKit> m_animFire;
 
-	bool moving;
-	int direction;
-
-	void initPlayer();
+	PlayerState m_state;
+	PlayerFightType m_fightType;
+	PlayerMagicType m_magicType;
 };
