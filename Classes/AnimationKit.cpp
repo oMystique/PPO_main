@@ -2,7 +2,7 @@
 
 USING_NS_CC;
 
-CAnimationKit * CAnimationKit::create(cocos2d::String const & animPath, cocos2d::Rect const & rect, int countFrames, bool repeat, double delay)
+CAnimationKit * CAnimationKit::create(std::string const & animPath, cocos2d::Rect const & rect, int countFrames, bool repeat, double delay)
 {
 	CAnimationKit *pAnimKit = new (std::nothrow) CAnimationKit();
 	if (pAnimKit && pAnimKit->init(animPath, rect, countFrames, repeat, delay)) 
@@ -16,12 +16,12 @@ CAnimationKit * CAnimationKit::create(cocos2d::String const & animPath, cocos2d:
 	return pAnimKit;
 }
 
-bool CAnimationKit::init(cocos2d::String const & animPath, cocos2d::Rect const & rect, int countFrames, bool repeat, double delay)
+bool CAnimationKit::init(std::string const & animPath, cocos2d::Rect const & rect, int countFrames, bool repeat, double delay)
 {
 	Vector<SpriteFrame*> animFrames(countFrames);
 	for (unsigned i = 0; i < countFrames; ++i)
 	{
-		auto frame = SpriteFrame::create(animPath.getCString(), Rect(i * rect.getMinX(), rect.getMinY(), rect.size.width, rect.size.height));
+		auto frame = SpriteFrame::create(animPath, Rect(i * rect.getMinX(), rect.getMinY(), rect.size.width, rect.size.height));
 		animFrames.pushBack(frame);
 	}
 	auto animation = Animation::createWithSpriteFrames(animFrames, delay);

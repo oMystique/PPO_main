@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="50" tilewidth="32" tileheight="32" nextobjectid="6">
+ <tileset firstgid="1" name="tilesheet_complete" tilewidth="32" tileheight="32" tilecount="1056">
+  <image source="tilesheet_complete.png" width="1408" height="768"/>
+ </tileset>
+ <tileset firstgid="1057" name="meta_tiles" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="2">
+  <image source="meta_tiles.png" width="67" height="34"/>
+  <tile id="0">
+   <properties>
+    <property name="Collidable" value="True"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Слой тайлов 1" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2MduE0Ecx/GJdx2KRLnGtAeAVHgFh/YAlBTKFaSEcofkElJAggtI1BdILpBCCXfKHRKJkkJ7AMqRr4UtjSyGeJeMZsG/j/TVeBQn2diTf1YxRkREREREREREREREREREREREREREREREREREsuBNzpi3udBXIf+bdZEx66PQVyEiIiJZ9Yr7hNc0R/O6Z5CUqs9RFBsTU54a49BXJ/8KnSM/BnLGDDr+13CV1/maNfv7qH+Fr3eKTpcfd1E39VAvHaPjdIJOpr/kVM7xc5ynC3SRBmgwxTmao/k/7OWXcc7UhONczfK6P7XO1U26tcLXu043yo+H6BIN0wiN0hhdpiu/+dydfK9d1Ewt1EptNexrcZfn3aMmKtA4TaS4X8o3cP4a3Pt6Vno5S7+aeWqkNZ729+kBTdIUTdMMPaRH9Jie0CytpUNc2GE6Qkepi7pr2G+hrbSNttMO63FlfUEvrXM1SmMp1nbOUId1jqr39ayV2qidOmi3p/07ek8LtEhLtEwf6CN9os/0hfb8xc+zl/d7H+2nA3TQelxZv9MPKlInTdNMirWHM9RrnaPqfT0rvQy5DK7DvG8jUfL1DJ21ZtEzel7eN1kfL1jPWaLlFKvmlVsztWRwneR9m4qSr7fpjjWLvtK38r5ofbzTes4m/lBvjpOvmlduoeeSa13g/V6Mkq+VuVRIsKaleeUWei651g3Mg41x8rVozaFa17Q0r9xCzyUf86p6JvmaV+IWei75mFfVM8nXvBK30HPJ97zyeX8lbqHnku955fP+StxCz6XVnleSDaHn0mrPKxEREREREREJ5ycocfi3
+  </data>
+ </layer>
+ <layer name="Слой тайлов 2" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1stOE1EcgPHTTvew043o3use3wD2CrLXd2i5JFwT2ME7tFwSbSXRHbyBJiq40Q3sdANbTeBrUiYkpRMycWY68fslH6eHBZ2Z/HtKCJIkSZIkSZIkSZIkSZIkSZIkSZIkSbpSpwbN0hzN00KRFzRkTiohnFaKvoryaVKLtmmHdmmv0CsaLiPVEEarRV9FebR5Vh36wuuv9I2O6Ji+F3plw2WcZ/TcubqVec71hd7ZftH9wesKVSmimud+7DUz9ca5ulGdOWlcm5VdXu/19g9ZH9FjekJP6ZlzFdtkprZymKtP9DlhP4yazElrwKy84PcvaYqm6RXNOFexA2bqMIe5+kN/E/b/yiz3Mte7nzprI+HezqIQzqN077PIDC3RMq3QKq05V7FfPPffOX4P3qcHGf79be5lp3c/TdZWwr3dq4UwVkv3Pm+ZoXfUpg69p33nKnaHz+vdlJ/ZNCZoMr+3y8w6z2wj6l+VrymaTtiXzQdm6GPUvypfy7SSsC+bE2boNOpfla82dRL2ZTPC/2Wjtf5V+fpBPxP2RRl07qRdpa5B507aVeryvFIWPK+UBc8rZcHzSpIkSZIkSfq/XAJxeIY9
+  </data>
+ </layer>
+ <objectgroup name="Objects">
+  <object id="1" name="player" x="432.5" y="977.833"/>
+  <object id="5" name="easyEnemy" x="625.5" y="881.5"/>
+ </objectgroup>
+ <layer name="floor" width="150" height="50">
+  <properties>
+   <property name="BodyShape" value="rectangle"/>
+   <property name="BodyType" value="static"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt2DsKgDAURcEUbsT9b1IsbAQRNZd8nIHXB94hgZQCAAAAAAAAAPRiXVqfgBnpioS9K21Rm65I0BUJuiJBUyToigRdkaArEnRFgq746vhTOA+8oR9qci9Rw9U7pyue0NGYzvtpvS8dja+3HfZwhpnd7XvWAQAAAAAAAAAAAPiLDREbEvA=
+  </data>
+ </layer>
+ <layer name="walls" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1FsKgCAURVE/GknzH2RERCgRaj5A1pqAse+hEAAAAAAAAAAAAAAAgNXs2+wvYEV2RQ92FTt7aPKfhjE92tDx4V9VR7NvdlVGrzw65dGpjF7v7i761NHtYkdtjeqYvjP7fnbU14iu6Q1n39SOAAAAAAAAAAAAAKDeAdO9B7k=
+  </data>
+ </layer>
+</map>

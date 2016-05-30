@@ -2,7 +2,7 @@
 #define __SNEAKY_BUTTON_H__
 
 #include "cocos2d.h"
-#include <boost/signals2.hpp>
+#include "boost/signals2.hpp"
 
 class CPlayer;
 

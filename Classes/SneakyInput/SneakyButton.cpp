@@ -4,8 +4,8 @@ using namespace cocos2d;
 
 bool SneakyButton::initWithRect(Rect rect)
 {
-    bounds = CCRectMake(0, 0, rect.size.width, rect.size.height);
-    center = CCPointMake(rect.size.width/2, rect.size.height/2);
+    bounds = Rect(0, 0, rect.size.width, rect.size.height);
+    center = Point(rect.size.width/2, rect.size.height/2);
     status = 1; //defaults to enabled
     active = false;
     value = 0;
@@ -50,7 +50,7 @@ bool SneakyButton::onTouchBegan(Touch *touch, Event *event)
         return false;
     }
 	
-    CCPoint location = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
+    Vec2 location = CCDirector::getInstance()->convertToGL(touch->getLocationInView());
 	location = target->convertToNodeSpace(location);
 		//Do a fast rect check before doing a circle hit check:
 	if(location.x < -target->getRadius() || location.x > target->getRadius() || location.y < -target->getRadius() || location.y > target->getRadius())
@@ -91,7 +91,7 @@ void SneakyButton::onTouchMoved(Touch *touch, Event *event)
         return;
     }
     
-	CCPoint location = CCDirector::sharedDirector()->convertToGL(touch->getLocationInView());
+	Vec2 location = CCDirector::getInstance()->convertToGL(touch->getLocationInView());
 	location = target->convertToNodeSpace(location);
 		//Do a fast rect check before doing a circle hit check:
 	if(location.x < -target->getRadius() || location.x > target->getRadius() || location.y < -target->getRadius() || location.y > target->getRadius())

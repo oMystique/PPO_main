@@ -28,6 +28,8 @@ enum class PlayerMagicType
 
 class CPlayer : public CEntities {
 public:
+	int getHealthCount()const;
+	int getManaCount()const;
 
 	static CPlayer * create();
 	void move(PlayerState const &state);
@@ -36,8 +38,14 @@ public:
 	void attack();
 	void frostOperate();
 	void fireOperate();
+	void arcaneOperate();
+	PlayerState getPlayerState()const;
+
+	bool m_isJump = false;
 
 	void update() override;
+	cocos2d::PhysicsBody *m_pSpriteBody;
+	ObjectKeeper<Sprite> emptySprite;
 private:
 	void setAnimation(CAnimationKit *kit);
 	void initPlayer();
@@ -49,8 +57,13 @@ private:
 	ObjectKeeper<CAnimationKit> m_attackAnimation;
 	ObjectKeeper<CAnimationKit> m_animFrost;
 	ObjectKeeper<CAnimationKit> m_animFire;
+	ObjectKeeper<CAnimationKit> m_animArcane;
+
+	int m_health = 100;
+	int m_mana = 100;
 
 	PlayerState m_state;
 	PlayerFightType m_fightType;
 	PlayerMagicType m_magicType;
+	Vec2 jumpPos;
 };
