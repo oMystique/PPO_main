@@ -1,25 +1,24 @@
 #pragma once
 
 #include "cocos2d.h"
-using namespace cocos2d;
 #include <vector>
 #include "ObjectKeeper.h"
 
-class CLevel : public Object
+class CLevel : public cocos2d::Object
 {
 public:
 	void loadMap(const char* name);
-	TMXTiledMap * getMap();
-	std::vector<Sprite*> getMetas();
+	cocos2d::TMXTiledMap * getMap();
+	std::vector<cocos2d::Sprite*> getMetas();
 
-	Point tileCoordinateToPosition(Size s, Point point);
-	Point positionToTileCoordinate(Size s, Point point);
-	std::vector<Rect> getCollisionTiles(Point point, int fromX, int fromY);
+	cocos2d::Point tileCoordinateToPosition(cocos2d::Size s, cocos2d::Point point);
+	cocos2d::Point positionToTileCoordinate(cocos2d::Size s, cocos2d::Point point);
+	std::vector<cocos2d::Rect> getCollisionTiles(cocos2d::Point point, int fromX, int fromY);
 
 	CLevel(void);
 	virtual ~CLevel(void);
 private:
-	TMXTiledMap *map;
-	ObjectKeeper<CCTMXLayer> m_meta;
-	std::vector<Sprite*> m_metas;
+	cocos2d::TMXTiledMap *map;
+	ObjectKeeper<cocos2d::CCTMXLayer> m_meta;
+	std::vector<cocos2d::Sprite*> m_metas;
 };

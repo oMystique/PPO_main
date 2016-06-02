@@ -1,5 +1,7 @@
 #include "Level.h"
 
+USING_NS_CC;
+
 const double SCALE_FACTOR = 2;
 
 void CLevel::loadMap(const char* mapname) {

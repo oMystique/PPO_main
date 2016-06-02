@@ -1,16 +1,27 @@
 #pragma once
 #include "Entities.h"
 #include "AnimationKit.h"
-
-USING_NS_CC;
+#include <map>
 
 enum class PlayerState
 {
-	moveLeft,
-	moveRight,
-	stay,
+	moveLeft = -1,
+	stay = 0,
+	moveRight = 1,
 	fight,
+	jump,
 	none
+};
+
+enum class PlayerAnimationType
+{
+	run,
+	stay,
+	knivesOperate,
+	knivesAttack,
+	frostMageSwitch,
+	fireMageSwitch,
+	arcaneMageSwitch,
 };
 
 enum class PlayerFightType
@@ -26,44 +37,56 @@ enum class PlayerMagicType
 	frost
 };
 
-class CPlayer : public CEntities {
+class CPlayer 
+	: public cocos2d::Node 
+{
 public:
-	int getHealthCount()const;
-	int getManaCount()const;
-
 	static CPlayer * create();
-	void move(PlayerState const &state);
+
 	void idle();
 	void knivesOperate();
 	void attack();
 	void frostOperate();
 	void fireOperate();
 	void arcaneOperate();
-	PlayerState getPlayerState()const;
 
-	bool m_isJump = false;
+	void setPosition(cocos2d::Vec2 const &pos);
+	int getHealthCount()const;
+	int getManaCount()const;
+	const cocos2d::Vec2 &getPosition()const override;
+	cocos2d::Rect getBoundingBox()const override;
 
-	void update() override;
-	cocos2d::PhysicsBody *m_pSpriteBody;
-	ObjectKeeper<Sprite> emptySprite;
+	void action(PlayerState const &state);
+	void update();
+
+	bool isAttack()const;
+
+	void hasDamaged(int healthCount);
+	void hasBurnedMana(int manaCount);
 private:
+	void move(PlayerState const &state);
+	void jump();
+
+	cocos2d::Vec2 getVelocity()const;
+	void setVelocity(cocos2d::Vec2 const &velocity);
+
+	void pushAnimations();
 	void setAnimation(CAnimationKit *kit);
 	void initPlayer();
+
 private:
-	~CPlayer();
-	ObjectKeeper<CAnimationKit> m_idleAnimation;
-	ObjectKeeper<CAnimationKit> m_runAnimation;
-	ObjectKeeper<CAnimationKit> m_kniveOpAnimation;
-	ObjectKeeper<CAnimationKit> m_attackAnimation;
-	ObjectKeeper<CAnimationKit> m_animFrost;
-	ObjectKeeper<CAnimationKit> m_animFire;
-	ObjectKeeper<CAnimationKit> m_animArcane;
+	CPlayer* operator=(CPlayer && player) = delete;
+
+	ObjectKeeper<cocos2d::Sprite> m_playerSprite = nullptr;
+	ObjectKeeper<cocos2d::Sprite> m_phantomeSprite = nullptr;
+
+	PlayerState m_state = PlayerState::stay;
+	cocos2d::Vec2 m_jumpPos = { 0, 0 };
+
+	mutable bool m_isMeleeAttack = false;
 
 	int m_health = 100;
 	int m_mana = 100;
 
-	PlayerState m_state;
-	PlayerFightType m_fightType;
-	PlayerMagicType m_magicType;
-	Vec2 jumpPos;
+	std::map<const PlayerAnimationType, ObjectKeeper<CAnimationKit>> m_animations;
 };
