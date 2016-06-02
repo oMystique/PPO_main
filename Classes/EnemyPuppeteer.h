@@ -18,11 +18,15 @@ public:
 	bool hasPuppet()const;
 
 	const cocos2d::Vec2 &getPuppetPos()const;
-
-	void update(cocos2d::Vec2 const &playerPos, cocos2d::Rect const &playerRect, bool playerIsAttacked);
+	void interactWithPlayer(cocos2d::Vec2 const &playerPos, cocos2d::Rect const &playerRect, bool playerIsAttacked);
+	void update();
 private:
 	void init(cocos2d::Vec2 const &puppetPos);
 	void updateTimer(float dt);
+	void unscheduleTimer();
+	void scheduleTimer();
+	void pursuitTarget(cocos2d::Vec2 const &playerPos);
+	void attackTarget(bool playerIsAttacked);
 private:
 	int m_timer = 0;
 	ObjectKeeper<CEnemy> m_enemy;

@@ -9,16 +9,27 @@ class CLevel : public cocos2d::Object
 public:
 	void loadMap(const char* name);
 	cocos2d::TMXTiledMap * getMap();
-	std::vector<cocos2d::Sprite*> getMetas();
+
+	template <typename T>
+	std::vector<ObjectKeeper<T>> getObjects(std::string const &name);
 
 	cocos2d::Point tileCoordinateToPosition(cocos2d::Size s, cocos2d::Point point);
 	cocos2d::Point positionToTileCoordinate(cocos2d::Size s, cocos2d::Point point);
-	std::vector<cocos2d::Rect> getCollisionTiles(cocos2d::Point point, int fromX, int fromY);
-
-	CLevel(void);
-	virtual ~CLevel(void);
 private:
 	cocos2d::TMXTiledMap *map;
-	ObjectKeeper<cocos2d::CCTMXLayer> m_meta;
-	std::vector<cocos2d::Sprite*> m_metas;
 };
+
+
+template<typename T>
+std::vector<ObjectKeeper<T>> CLevel::getObjects(std::string const & name)
+{
+	std::vector<ObjectKeeper<T>> objects;
+	for (auto &it : getMap()->getObjectGroup(name)->getObjects())
+	{
+		auto value = it.asValueMap();
+		Vec2 pos = Vec2(value["x"].asFloat(), value["y"].asFloat());
+		auto object = T::create(pos);
+		objects.push_back(object);
+	}
+	return objects;
+}

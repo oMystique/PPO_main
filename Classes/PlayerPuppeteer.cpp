@@ -28,8 +28,7 @@ bool CPlayerPuppeteer::isAttack() const
 
 void CPlayerPuppeteer::init(Vec2 const & playerPos)
 {
-	m_player = CPlayer::create();
-	m_player->setPosition(playerPos);
+	m_player = CPlayer::create(playerPos);
 	addChild(m_player);
 }
 
@@ -47,19 +46,19 @@ void CPlayerPuppeteer::update(cocos2d::Vec2 const & controllerPosition)
 {
 	if (controllerPosition.x < 0)
 	{
-		m_player->action(PlayerState::moveLeft);
+		m_player->action(PuppetState::moveLeft);
 	}
 	else if (controllerPosition.x > 0)
 	{
-		m_player->action(PlayerState::moveRight);
+		m_player->action(PuppetState::moveRight);
 	}
 	else if (controllerPosition.x == 0)
 	{
-		m_player->action(PlayerState::stay);
+		m_player->action(PuppetState::stay);
 	};
 	if (controllerPosition.y > 50)
 	{
-		m_player->action(PlayerState::jump);
+		m_player->action(PuppetState::jump);
 	}
 	m_player->update();
 }
