@@ -146,30 +146,51 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationKit.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Enemy.cpp" />
+    <ClCompile Include="..\Classes\EnemyPuppeteer.cpp" />
     <ClCompile Include="..\Classes\Entities.cpp" />
+    <ClCompile Include="..\Classes\Level.cpp" />
+    <ClCompile Include="..\Classes\Lifebar.cpp" />
     <ClCompile Include="..\Classes\MainScene.cpp" />
     <ClCompile Include="..\Classes\player.cpp" />
+    <ClCompile Include="..\Classes\PlayerPuppeteer.cpp" />
+    <ClCompile Include="..\Classes\Puppet.cpp" />
     <ClCompile Include="..\Classes\SneakyInput\SneakyButton.cpp" />
     <ClCompile Include="..\Classes\SneakyInput\SneakyButtonSkinnedBase.cpp" />
     <ClCompile Include="..\Classes\SneakyInput\SneakyJoystick.cpp" />
     <ClCompile Include="..\Classes\SneakyInput\SneakyJoystickSkinnedBase.cpp" />
+    <ClCompile Include="..\Classes\SpellObject.cpp" />
     <ClCompile Include="..\Classes\Toolbar.cpp" />
     <ClCompile Include="..\Classes\ToolbarManager.cpp" />
+    <ClCompile Include="..\Classes\UILayer.cpp" />
+    <ClCompile Include="..\Classes\World.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationKit.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\BonusPuppet.h" />
+    <ClInclude Include="..\Classes\BonusPuppeteer.h" />
+    <ClInclude Include="..\Classes\Enemy.h" />
+    <ClInclude Include="..\Classes\EnemyPuppeteer.h" />
     <ClInclude Include="..\Classes\Entities.h" />
+    <ClInclude Include="..\Classes\IPuppeteer.h" />
+    <ClInclude Include="..\Classes\Level.h" />
+    <ClInclude Include="..\Classes\Lifebar.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\ObjectKeeper.h" />
     <ClInclude Include="..\Classes\player.h" />
+    <ClInclude Include="..\Classes\PlayerPuppeteer.h" />
+    <ClInclude Include="..\Classes\Puppet.h" />
     <ClInclude Include="..\Classes\SneakyInput\SneakyButton.h" />
     <ClInclude Include="..\Classes\SneakyInput\SneakyButtonSkinnedBase.h" />
     <ClInclude Include="..\Classes\SneakyInput\SneakyJoystick.h" />
     <ClInclude Include="..\Classes\SneakyInput\SneakyJoystickSkinnedBase.h" />
+    <ClInclude Include="..\Classes\SpellObject.h" />
     <ClInclude Include="..\Classes\Toolbar.h" />
     <ClInclude Include="..\Classes\ToolbarManager.h" />
+    <ClInclude Include="..\Classes\UILayer.h" />
+    <ClInclude Include="..\Classes\World.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

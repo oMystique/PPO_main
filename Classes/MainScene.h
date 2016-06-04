@@ -18,7 +18,7 @@ private:
 	void update(float dt);
 private:
 	CWorld * m_world;
-	CUILayer * m_uiLayer;
+	CUILayer * m_gameUI;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

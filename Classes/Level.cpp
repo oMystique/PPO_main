@@ -53,6 +53,14 @@ TMXTiledMap * CLevel::getMap()
 	return map;
 }
 
+cocos2d::Vec2 CLevel::getPlayerPos(std::string const & playerName)
+{
+	auto objectGroup = getMap()->objectGroupNamed("Objects");
+	auto spawnPoint = objectGroup->objectNamed(playerName);
+	auto playerPos = Vec2(spawnPoint.at("x").asFloat(), spawnPoint.at("y").asFloat() + 150);
+	return playerPos;
+}
+
 Point CLevel::tileCoordinateToPosition(Size s, Point point) {
 
 	float x = floor(s.width / 2 * SCALE_FACTOR + point.x * map->getTileSize().width * SCALE_FACTOR);

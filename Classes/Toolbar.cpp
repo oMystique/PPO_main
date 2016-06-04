@@ -9,7 +9,9 @@ CToolbar * CToolbar::create()
 	return toolbar;
 }
 
-SneakyButtonSkinnedBase* CToolbar::createButton(cocos2d::Point const & pos, cocos2d::Rect const & bounds, std::string const & buttonName)
+SneakyButtonSkinnedBase* CToolbar::createButton(cocos2d::Point const & pos
+	, cocos2d::Rect const & bounds
+	, std::string const & buttonName)
 {
 	ObjectKeeper<SneakyButtonSkinnedBase> buttonBase = SneakyButtonSkinnedBase::create();
 	buttonBase->setPosition(pos);

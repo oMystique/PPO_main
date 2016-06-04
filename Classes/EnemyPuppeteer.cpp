@@ -26,26 +26,26 @@ void CEnemyPuppeteer::init(Vec2 const & puppetPos)
 	addChild(m_lifebar);
 }
 
-void CEnemyPuppeteer::updateTimer(float /*dt*/)
+void CEnemyPuppeteer::updateAttackTimer(float /*dt*/)
 {
-	m_timer += 1;
+	++m_attackTimer;
 }
 
-void CEnemyPuppeteer::unscheduleTimer()
+void CEnemyPuppeteer::unscheduleAttackTimer()
 {
-	if (m_timer > 19)
+	if (m_attackTimer > 19)
 	{
-		unschedule(schedule_selector(CEnemyPuppeteer::updateTimer));
-		m_timer = 0;
+		unschedule(schedule_selector(CEnemyPuppeteer::updateAttackTimer));
+		m_attackTimer = 0;
 	}
 }
 
-void CEnemyPuppeteer::scheduleTimer()
+void CEnemyPuppeteer::scheduleAttackTimer()
 {
-	if (m_timer == 0)
+	if (m_attackTimer == 0)
 	{
-		schedule(schedule_selector(CEnemyPuppeteer::updateTimer));
-		m_timer = 1;
+		schedule(schedule_selector(CEnemyPuppeteer::updateAttackTimer));
+		m_attackTimer = 1;
 		m_enemyIsAttack = true;
 	}
 }
@@ -70,7 +70,7 @@ void CEnemyPuppeteer::attackTarget(bool playerIsAttacked)
 		damagePuppet(20);
 	}
 	m_enemy->action(PuppetState::attack);
-	scheduleTimer();
+	scheduleAttackTimer();
 }
 
 CEnemy *CEnemyPuppeteer::getPuppet() const
@@ -95,6 +95,10 @@ void CEnemyPuppeteer::puppetHasAttackedByMagic(int magicType)
 	{
 	case 1:
 		m_enemy->attackedByFrost();
+		break;
+	case 2:
+		m_enemy->attackedByFire();
+		break;
 	}
 }
 
@@ -134,7 +138,7 @@ void CEnemyPuppeteer::update()
 		, m_enemy->getPosition() + Vec2(-56.f, 55.6f));
 	m_lifebar->update(m_enemy->getHealthCount());
 
-	unscheduleTimer();
+	unscheduleAttackTimer();
 
 	m_enemy->update();
 }

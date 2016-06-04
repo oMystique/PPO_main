@@ -92,6 +92,19 @@ void CEnemy::update()
 		{
 			collisionDetectEvents();
 		}
+		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideBalt")
+		{
+			if (m_puppetSprite->getColor() != Color3B::BLUE)
+			{
+				hasDamaged(15);
+			}
+			else
+			{
+				hasDamaged(25);
+			}
+			attackedByFrost();
+		}
+		m_phantomeSprite->getPhysicsBody()->setName("");
 		m_puppetSprite->setPosition(m_phantomeSprite->getPosition());
 	}
 	else if (m_isAlive && m_dieTimer == 0)
@@ -103,12 +116,24 @@ void CEnemy::update()
 
 void CEnemy::attackedByFrost()
 {
-	if (m_debuffTimer == 0)
+	if (m_puppetSprite->getColor() != Color3B::BLUE)
 	{
 		m_health -= 10;
 	}
 	m_velocityX = 25;
 	m_puppetSprite->setColor(Color3B::BLUE);
+	schedule(schedule_selector(CEnemy::updateDebuffTimer));
+}
+
+void CEnemy::attackedByFire()
+{
+	if (m_puppetSprite->getColor() != Color3B::RED)
+	{
+		m_velocityX += 100;
+		m_health -= 65;
+		m_debuffTimer = 1;
+	}
+	m_puppetSprite->setColor(Color3B::RED);
 	schedule(schedule_selector(CEnemy::updateDebuffTimer));
 }
 
@@ -156,7 +181,6 @@ void CEnemy::collisionDetectEvents()
 	{
 		action(SwitchMoveDirection(m_state));
 	}
-	m_phantomeSprite->getPhysicsBody()->setName("");
 }
 
 void CEnemy::unscheduleDebuffTimer()

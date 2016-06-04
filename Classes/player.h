@@ -16,6 +16,7 @@ public:
 	void frostOperate();
 	void fireOperate();
 	void arcaneOperate();
+	void castFrostBalt();
 
 	int getManaCount()const;
 
@@ -27,6 +28,7 @@ public:
 	void hasBurnedMana(int manaCount);
 private:
 
+	void castTimer(float dt);
 	void pushAnimations();
 	void initPlayer(cocos2d::Vec2 const &pos);
 
@@ -34,4 +36,5 @@ private:
 	CPlayer* operator=(CPlayer && player) = delete;
 	mutable bool m_isMeleeAttack = false;
 	int m_mana = 100;
+	int m_castTimer = 0;
 };

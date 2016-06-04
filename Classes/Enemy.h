@@ -12,6 +12,7 @@ public:
 	void action(PuppetState const &state)override;
 	void update()override;
 	void attackedByFrost();
+	void attackedByFire();
 private:
 	static PuppetState SwitchMoveDirection(PuppetState const &state);
 	void die();

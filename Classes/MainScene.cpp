@@ -2,13 +2,16 @@
 
 USING_NS_CC;
 #define COCOS2D_DEBUG 1
-
+//GAME LAYER
+// stackoverflow.com/questions/33286400/how-to-get-the-current-position-of-my-screen-in-cocos2d
 
 Scene* CMainScene::createScene()
 {
     auto scene = Scene::createWithPhysics();
     auto layer = make_cc<CMainScene>();
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -500));
+
+	//scene->getPhysicsWorld()->setDebugDrawMask(scene->getPhysicsWorld()->DEBUGDRAW_ALL);
 
     scene->addChild(layer);
     return scene;
@@ -31,11 +34,11 @@ bool CMainScene::init()
 	addChild(background);
 
 	m_world = make_cc<CWorld>();
-	m_uiLayer = CUILayer::create(m_world);
-	m_world->setPtrToUiLayer(m_uiLayer);
+	m_gameUI = CUILayer::create(m_world);
+	m_world->setPtrToUiLayer(m_gameUI);
 
 	addChild(m_world);
-	addChild(m_uiLayer);
+	addChild(m_gameUI);
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(CMainScene::onTouchBegan, this);
@@ -47,10 +50,10 @@ bool CMainScene::init()
     return true;
 }
 
-void CMainScene::update(float /*dt*/)
+void CMainScene::update(float dt)
 {
 	m_world->update();
-	m_uiLayer->update();
+	m_gameUI->update();
 }
 
 bool CMainScene::onTouchBegan(Touch *touch, Event *event)

@@ -87,32 +87,26 @@ void CUILayer::createJoyStick()
 	m_joystickBase->setPosition(joystickBasePosition);
 }
 
-
-void CUILayer::createFrostToolbar()
+void CUILayer::addToolbar(ToolbarType const & toolbarType)
 {
-	if (m_addToolbar != nullptr)
+	if (m_additionalToolbar != nullptr)
 	{
-		removeChild(m_addToolbar);
+		removeChild(m_additionalToolbar);
 	}
-	m_addToolbar = CToolbarManager::createFrostToolbar(m_visibleSize, m_world->getPlayer(), this, m_world);
-	addChild(m_addToolbar);
-}
-
-void CUILayer::createFireToolbar()
-{
-}
-
-void CUILayer::createArcaneToolbar()
-{
-}
-
-
-void CUILayer::createAttackToolbar()
-{
-	if (m_addToolbar != nullptr)
+	switch (toolbarType)
 	{
-		removeChild(m_addToolbar);
+	case ToolbarType::arcane:
+		m_additionalToolbar = CToolbarManager::createArcaneToolbar(m_visibleSize, m_world->getPlayer());
+		break;
+	case ToolbarType::fire:
+		m_additionalToolbar = CToolbarManager::createFireToolbar(m_visibleSize, m_world->getPlayer(), m_world);
+		break;
+	case ToolbarType::frost:
+		m_additionalToolbar = CToolbarManager::createFrostToolbar(m_visibleSize, m_world->getPlayer(), m_world);
+		break;
+	case ToolbarType::melee:
+		m_additionalToolbar = CToolbarManager::createMeleeToolbar(m_visibleSize, m_world->getPlayer());
+		break;
 	}
-	m_addToolbar = CToolbarManager::createMeleeToolbar(m_visibleSize, m_world->getPlayer());
-	addChild(m_addToolbar);
+	addChild(m_additionalToolbar);
 }

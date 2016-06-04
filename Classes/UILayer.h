@@ -15,10 +15,7 @@ public:
 	void setPtrToWorld(CWorld * world);
 	void update();
 
-	void createAttackToolbar();
-	void createFrostToolbar();
-	void createFireToolbar();
-	void createArcaneToolbar();
+	void addToolbar(ToolbarType const &toolbarType);
 
 	cocos2d::Vec2 getJoystickPosition()const;
 private:
@@ -29,6 +26,6 @@ private:
 	CLifeBar *m_lifeBar;
 	ObjectKeeper<SneakyJoystickSkinnedBase> m_joystickBase;
 	ObjectKeeper<CToolbar> m_toolbar;
-	CToolbar *m_addToolbar;
+	CToolbar *m_additionalToolbar;
 	cocos2d::Size m_visibleSize;
 };

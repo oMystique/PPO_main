@@ -13,6 +13,7 @@ enum class PuppetAnimationType
 	frostMageSwitch,
 	fireMageSwitch,
 	arcaneMageSwitch,
+	castFrostBalt
 };
 
 enum class PuppetState

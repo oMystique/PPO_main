@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "SpellObject.h"
 
 USING_NS_CC;
 
@@ -44,6 +45,16 @@ void CPlayer::initPlayer(cocos2d::Vec2 const &pos)
 void CPlayer::arcaneOperate()
 {
 	setAnimation(m_animations.at(PuppetAnimationType::arcaneMageSwitch));
+}
+
+void CPlayer::castFrostBalt()
+{
+	if (m_mana >= 10 && m_state == PuppetState::stay)
+	{
+		m_castTimer = 0;
+		schedule(schedule_selector(CPlayer::castTimer));
+		setAnimation(m_animations.at(PuppetAnimationType::castFrostBalt));
+	}
 }
 
 void CPlayer::action(PuppetState const & state)
@@ -127,6 +138,30 @@ int CPlayer::getManaCount() const
 	return m_mana;
 }
 
+void CPlayer::castTimer(float /*dt*/)
+{
+	if (!m_puppetSprite->getActionByTag(1) || m_state != PuppetState::stay)
+	{
+		m_castTimer = 0;
+		unschedule(schedule_selector(CPlayer::castTimer));
+		stopAllActions();
+	}
+	if (m_castTimer < 60)
+	{
+		++m_castTimer;
+	}
+	else
+	{
+		auto spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
+			+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20));
+		addChild(spell);
+		unschedule(schedule_selector(CPlayer::castTimer));
+		m_castTimer = 0;
+		hasBurnedMana(10);
+		setAnimation(m_animations.at(PuppetAnimationType::stay));
+	}
+}
+
 void CPlayer::pushAnimations()
 {
 	m_animations.insert({ PuppetAnimationType::stay,
@@ -143,4 +178,7 @@ void CPlayer::pushAnimations()
 		CAnimationKit::create("stay_anim_fire.png", Rect(130, 0, 130, 211), 7, false, 0.15f) });
 	m_animations.insert({ PuppetAnimationType::arcaneMageSwitch,
 		CAnimationKit::create("stay_anim_arcan.png", Rect(130, 0, 130, 211), 7, false, 0.15f) });
+	m_animations.insert({ PuppetAnimationType::castFrostBalt,
+		CAnimationKit::create("frost_balt_cast.png", Rect(113, 0, 113, 155), 3, true, 0.23f) });
+	m_animations.at(PuppetAnimationType::castFrostBalt)->getAction()->setTag(1);
 }

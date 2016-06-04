@@ -34,6 +34,51 @@
     <Filter Include="src\ui\ui\ToolBarManager">
       <UniqueIdentifier>{22b054d3-91b3-421f-b20a-99e5d138a3d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Level">
+      <UniqueIdentifier>{d6ee194a-0d73-4dba-84b2-87448995973e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Enemies">
+      <UniqueIdentifier>{c1c28671-98b2-4860-8581-33d6ee8d762a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Lifebar">
+      <UniqueIdentifier>{90a5257d-6231-4ec4-a0be-8d936eae91f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Player\PlayerPuppeteer">
+      <UniqueIdentifier>{8d32df89-2372-4329-8221-ed6d9f26c38f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Enemies\EnemyPuppeteer">
+      <UniqueIdentifier>{8ba33a0a-981d-400c-b064-2c9216552662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Enemies\EnemyPuppet">
+      <UniqueIdentifier>{d7adea92-6e98-4cd6-a738-dd5ef944e1fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Bonus">
+      <UniqueIdentifier>{2bb80730-5e01-408a-84fd-1045ea5f0768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Bonus\BonusPuppeteer">
+      <UniqueIdentifier>{52de213e-839b-40bc-a89c-a30910abed44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Bonus\BonusPuppet">
+      <UniqueIdentifier>{9ee79190-fee1-4b30-8df9-c62202bc331a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IPuppeteer">
+      <UniqueIdentifier>{ba1248f0-c2c1-4084-879b-8bd66ac00506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\World">
+      <UniqueIdentifier>{3ec5a86d-54ca-4bc9-bfbb-463885b22c29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UILayer">
+      <UniqueIdentifier>{fccad8bd-b254-471d-b986-3d61327bb83f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Puppet">
+      <UniqueIdentifier>{3fbd2d0a-afaa-4d6b-8f2c-1152c290e80a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Player\PlayerPuppet">
+      <UniqueIdentifier>{ce475565-ea18-4af6-b4ab-2f3bd7411fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SpellObject">
+      <UniqueIdentifier>{24a01c4d-eb16-4843-a631-d88caf831a0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,9 +86,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\player.cpp">
-      <Filter>src\Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Entities.cpp">
       <Filter>src\Entities</Filter>
@@ -66,11 +108,41 @@
     <ClCompile Include="..\Classes\MainScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Toolbar.cpp">
-      <Filter>src\ui\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ToolbarManager.cpp">
-      <Filter>src\ui\ui</Filter>
+      <Filter>src\ui\ui\ToolBarManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Toolbar.cpp">
+      <Filter>src\ui\ui\ToolBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level.cpp">
+      <Filter>src\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Lifebar.cpp">
+      <Filter>src\Lifebar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Enemy.cpp">
+      <Filter>src\Enemies\EnemyPuppet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\player.cpp">
+      <Filter>src\Player\PlayerPuppet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyPuppeteer.cpp">
+      <Filter>src\Enemies\EnemyPuppeteer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerPuppeteer.cpp">
+      <Filter>src\Player\PlayerPuppeteer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\World.cpp">
+      <Filter>src\World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\UILayer.cpp">
+      <Filter>src\UILayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Puppet.cpp">
+      <Filter>src\Puppet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SpellObject.cpp">
+      <Filter>src\SpellObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\player.h">
-      <Filter>src\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Entities.h">
       <Filter>src\Entities</Filter>
@@ -107,11 +176,50 @@
     <ClInclude Include="..\Classes\MainScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Toolbar.h">
-      <Filter>src\ui\ui</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ToolbarManager.h">
-      <Filter>src\ui\ui</Filter>
+      <Filter>src\ui\ui\ToolBarManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Toolbar.h">
+      <Filter>src\ui\ui\ToolBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level.h">
+      <Filter>src\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Lifebar.h">
+      <Filter>src\Lifebar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Enemy.h">
+      <Filter>src\Enemies\EnemyPuppet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\player.h">
+      <Filter>src\Player\PlayerPuppet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyPuppeteer.h">
+      <Filter>src\Enemies\EnemyPuppeteer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerPuppeteer.h">
+      <Filter>src\Player\PlayerPuppeteer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BonusPuppeteer.h">
+      <Filter>src\Bonus\BonusPuppeteer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BonusPuppet.h">
+      <Filter>src\Bonus\BonusPuppet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IPuppeteer.h">
+      <Filter>src\IPuppeteer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\World.h">
+      <Filter>src\World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UILayer.h">
+      <Filter>src\UILayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Puppet.h">
+      <Filter>src\Puppet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SpellObject.h">
+      <Filter>src\SpellObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

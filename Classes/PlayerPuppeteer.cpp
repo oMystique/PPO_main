@@ -18,12 +18,7 @@ CPlayerPuppeteer *CPlayerPuppeteer::create(Vec2 const & playerPos)
 
 bool CPlayerPuppeteer::isAttack() const
 {
-	if (m_player->isAttack())
-	{
-		return true;
-	}
-
-	return false;
+	return m_player->isAttack();
 }
 
 void CPlayerPuppeteer::init(Vec2 const & playerPos)

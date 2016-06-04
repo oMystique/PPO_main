@@ -22,13 +22,13 @@ public:
 	void update();
 private:
 	void init(cocos2d::Vec2 const &puppetPos);
-	void updateTimer(float dt);
-	void unscheduleTimer();
-	void scheduleTimer();
+	void updateAttackTimer(float dt);
+	void unscheduleAttackTimer();
+	void scheduleAttackTimer();
 	void pursuitTarget(cocos2d::Vec2 const &playerPos);
 	void attackTarget(bool playerIsAttacked);
 private:
-	int m_timer = 0;
+	int m_attackTimer = 0;
 	ObjectKeeper<CEnemy> m_enemy;
 	ObjectKeeper<CLifeBar> m_lifebar;
 	mutable bool m_enemyIsAttack = false;

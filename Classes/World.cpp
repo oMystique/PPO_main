@@ -52,6 +52,16 @@ int CWorld::getPlayerManaCount() const
 
 void CWorld::createFireCircle()
 {
+	if (getPlayerManaCount() >= 30)
+	{
+		auto m_actionAnim = CAnimationKit::create("cast_fire_circle.png", Rect(540, 0, 540, 198), 6, false, 0.15f);
+		m_actionAnim->autorelease();
+		m_action->stopAllActions();
+		m_action->setTag(2);
+		m_action->setPosition(Vec2(getPlayerPos().x, getPlayerPos().y + 50));
+		m_action->runAction(m_actionAnim->getAction());
+		m_playerPuppeteer->burnPuppetMana(40);
+	}
 }
 
 CPlayer * CWorld::getPlayer()
@@ -70,11 +80,7 @@ bool CWorld::init()
 	auto camera = Follow::create(m_cameraTarget, Rect::ZERO);
 	runAction(camera);
 
-	CCTMXObjectGroup *objectGroup = m_level->getMap()->objectGroupNamed("Objects");
-	auto spawnPoint = objectGroup->objectNamed("player");
-	Point playerPos = { spawnPoint.at("x").asFloat(), spawnPoint.at("y").asFloat() + 150 };
-
-	m_playerPuppeteer = CPlayerPuppeteer::create(playerPos);
+	m_playerPuppeteer = CPlayerPuppeteer::create(m_level->getPlayerPos("player"));
 	addChild(m_playerPuppeteer);
 
 	m_enemyPuppeteers = m_level->getObjects<CEnemyPuppeteer>("Enemies");
@@ -119,6 +125,14 @@ bool CWorld::onContactBegin(PhysicsContact & contact)
 	{
 		a->setName("toOther!");
 		b->setName("toOther!");
+	}
+	else if ((1 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask())
+		|| (2 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask())
+		|| (3 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask())
+		|| (3 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
+	{
+		a->setName("collideBalt");
+		b->setName("collideBalt");
 	}
 
 	return true;

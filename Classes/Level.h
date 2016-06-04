@@ -12,7 +12,8 @@ public:
 
 	template <typename T>
 	std::vector<ObjectKeeper<T>> getObjects(std::string const &name);
-
+	cocos2d::Vec2 getPlayerPos(std::string const &playerName);
+	
 	cocos2d::Point tileCoordinateToPosition(cocos2d::Size s, cocos2d::Point point);
 	cocos2d::Point positionToTileCoordinate(cocos2d::Size s, cocos2d::Point point);
 private:
@@ -27,7 +28,7 @@ std::vector<ObjectKeeper<T>> CLevel::getObjects(std::string const & name)
 	for (auto &it : getMap()->getObjectGroup(name)->getObjects())
 	{
 		auto value = it.asValueMap();
-		Vec2 pos = Vec2(value["x"].asFloat(), value["y"].asFloat());
+		auto pos = cocos2d::Vec2(value["x"].asFloat(), value["y"].asFloat());
 		auto object = T::create(pos);
 		objects.push_back(object);
 	}

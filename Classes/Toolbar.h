@@ -1,5 +1,4 @@
 #pragma once
-#include "cocos2d.h"
 #include "SneakyInput\SneakyJoystickSkinnedBase.h"
 #include "SneakyInput\SneakyButtonSkinnedBase.h"
 #include <string>
