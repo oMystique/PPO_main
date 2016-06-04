@@ -11,7 +11,7 @@ Scene* CMainScene::createScene()
     auto layer = make_cc<CMainScene>();
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -500));
 
-	//scene->getPhysicsWorld()->setDebugDrawMask(scene->getPhysicsWorld()->DEBUGDRAW_ALL);
+//	scene->getPhysicsWorld()->setDebugDrawMask(scene->getPhysicsWorld()->DEBUGDRAW_ALL);
 
     scene->addChild(layer);
     return scene;

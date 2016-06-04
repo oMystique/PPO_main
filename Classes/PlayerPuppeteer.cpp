@@ -68,3 +68,23 @@ void CPlayerPuppeteer::burnPuppetMana(int manaCount)
 	m_player->hasBurnedMana(manaCount);
 }
 
+bool CPlayerPuppeteer::puppetIsNeedBonus(int bonusTag)
+{
+	switch (bonusTag)
+	{
+	case 1:
+		if (m_player->getHealthCount() <= 90)
+		{
+			m_player->useBonus(bonusTag);
+			return true;
+		}
+	case 2:
+		if (m_player->getManaCount() <= 80)
+		{
+			m_player->useBonus(bonusTag);
+			return true;
+		}
+	}
+	return false;
+}
+

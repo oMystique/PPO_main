@@ -17,6 +17,9 @@ public:
 	void fireOperate();
 	void arcaneOperate();
 	void castFrostBalt();
+	void castFireBalt();
+
+	void useBonus(int bonusTag);
 
 	int getManaCount()const;
 
@@ -37,4 +40,5 @@ private:
 	mutable bool m_isMeleeAttack = false;
 	int m_mana = 100;
 	int m_castTimer = 0;
+	int m_interruptionCastTime = 0;
 };

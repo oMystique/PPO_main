@@ -3,10 +3,10 @@
 
 USING_NS_CC;
 
-CSpellObject * CSpellObject::create(float velocityX, cocos2d::Vec2 const &spawnPos)
+CSpellObject * CSpellObject::create(float velocityX, cocos2d::Vec2 const &spawnPos, std::string const &imagePath, int collisionBitmask)
 {
 	CSpellObject * spellObject = new (std::nothrow) CSpellObject();
-	if (spellObject && spellObject->init(velocityX, spawnPos))
+	if (spellObject && spellObject->init(velocityX, spawnPos, imagePath, collisionBitmask))
 	{
 		spellObject->autorelease();
 		return spellObject;
@@ -24,13 +24,16 @@ void CSpellObject::update(float dt)
 		m_phantomeSprite->getPhysicsBody()->setVelocity({ velocityX * 1.1f, 0 });
 	}
 	m_sprite->setPosition(m_phantomeSprite->getPosition());
-	if (m_phantomeSprite->getPhysicsBody()->getName() == "collideBalt")
+	auto name = m_phantomeSprite->getPhysicsBody()->getName();
+	if (name == "collideWithFrostBalt" || 
+		name == "collideWithFireBalt"  ||
+		name == "cillideWithArcanBlast" )
 	{
 		removeFromParentAndCleanup(true);
 	}
 }
 
-bool CSpellObject::init(float velocityX, cocos2d::Vec2 const &spawnPos)
+bool CSpellObject::init(float velocityX, cocos2d::Vec2 const &spawnPos, std::string const &imagePath, int collisionBitmask)
 {
 	m_sprite = Sprite::create();
 	velocityX > 0 ? m_sprite->setScale(0.6f) : m_sprite->setScale(-0.6f);
@@ -46,14 +49,14 @@ bool CSpellObject::init(float velocityX, cocos2d::Vec2 const &spawnPos)
 	spriteBody->setDynamic(true);
 	spriteBody->setGravityEnable(false);
 	spriteBody->setContactTestBitmask(true);
-	spriteBody->setCollisionBitmask(3);
+	spriteBody->setCollisionBitmask(collisionBitmask);
 	spriteBody->setMass(1);
 	spriteBody->setVelocity({ velocityX, 0 });
 
 	m_phantomeSprite->setPhysicsBody(spriteBody);
 	addChild(m_phantomeSprite);
 
-	auto anim = CAnimationKit::create("ice_balts_4.png", Rect(500, 0, 500, 88), 7, false, 0.12f);
+	auto anim = CAnimationKit::create(imagePath, Rect(500, 0, 500, 88), 7, false, 0.12f);
 	m_sprite->runAction(anim->getAction());
 
 	scheduleUpdate();

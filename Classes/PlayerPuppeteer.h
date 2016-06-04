@@ -15,9 +15,10 @@ public:
 
 	void damagePuppet(int healthCount);
 	void burnPuppetMana(int manaCount);
+
+	bool puppetIsNeedBonus(int bonusTag);
 private:
 	void init(cocos2d::Vec2 const &playerPos);
-
 private:
 	ObjectKeeper<CPlayer> m_player;
 };

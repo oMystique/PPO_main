@@ -15,7 +15,7 @@ SneakyButtonSkinnedBase* CToolbar::createButton(cocos2d::Point const & pos
 {
 	ObjectKeeper<SneakyButtonSkinnedBase> buttonBase = SneakyButtonSkinnedBase::create();
 	buttonBase->setPosition(pos);
-
+	buttonBase->setScale(1.4f);
 	buttonBase->setDefaultSprite(Sprite::create(buttonName + ".png"));
 	buttonBase->setActivatedSprite(Sprite::create(buttonName + ".png"));
 	buttonBase->setDisabledSprite(Sprite::create(buttonName + ".png"));
@@ -32,6 +32,7 @@ SneakyButtonSkinnedBase* CToolbar::createButton(cocos2d::Point const & pos
 
 	auto gButton = buttonBase->getButton();
 	gButton->retain();
+
 	return buttonBase;
 }
 

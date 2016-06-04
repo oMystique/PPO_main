@@ -3,6 +3,8 @@
 #include "EnemyPuppeteer.h"
 #include "Level.h"
 #include <vector>
+#include <Bonus.h>
+
 
 class CUILayer;
 class CWorld final
@@ -22,9 +24,12 @@ public:
 private:
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	void fightEnemyPuppeteerEvents(CEnemyPuppeteer * enemyPuppeteer);
+	void createBonuses();
+	void updateBonuses();
 	void updateEnemyPuppeteers();
 private:
-	std::vector<ObjectKeeper<CEnemyPuppeteer>> m_enemyPuppeteers;
+	std::vector<cocos2d::RefPtr<CEnemyPuppeteer>> m_enemyPuppeteers;
+	std::vector<cocos2d::RefPtr<CBonus>> m_bonuses;
 	CUILayer * m_uiLayer;
 	ObjectKeeper<CPlayerPuppeteer> m_playerPuppeteer;
 	CLevel * m_level;

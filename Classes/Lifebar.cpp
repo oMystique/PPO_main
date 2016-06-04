@@ -39,7 +39,6 @@ void CLifeBar::initLifeBar(Vec2 const &backgroundPos, Vec2 const &hpPos, Vec2 co
 
 	m_mana = Sprite::create();
 	m_mana->initWithFile(manaPath);
-	//m_mana->setAnchorPoint({ 0, 0 });
 	m_mana->ignoreAnchorPointForPosition(true);
 	m_mana->setPosition(manaPos);
 	addChild(m_mana);
@@ -55,7 +54,6 @@ void CLifeBar::initLifeBar(cocos2d::Vec2 const & backgroundPos, cocos2d::Vec2 co
 
 	m_health = Sprite::create();
 	m_health->initWithFile(hpPath);
-	//m_health->setAnchorPoint({ 0, 0 });
 	m_health->ignoreAnchorPointForPosition(true);
 	m_health->setPosition(hpPos);
 	addChild(m_health);

@@ -30,7 +30,7 @@ void CPlayer::initPlayer(cocos2d::Vec2 const &pos)
 	m_phantomeSprite->setVisible(false);
 	m_phantomeSprite->setPosition(pos);
 
-	auto spriteBody = PhysicsBody::createEdgeBox(Size(50, 86), PhysicsMaterial(300, 0, 0));
+	auto spriteBody = PhysicsBody::createEdgeBox(Size(50, 86), PhysicsMaterial(300, 0, 0), 4);
 	spriteBody->setRotationEnable(false);
 	spriteBody->setDynamic(true);
 	spriteBody->setMass(50);
@@ -51,9 +51,34 @@ void CPlayer::castFrostBalt()
 {
 	if (m_mana >= 10 && m_state == PuppetState::stay)
 	{
+		m_interruptionCastTime = 60;
 		m_castTimer = 0;
 		schedule(schedule_selector(CPlayer::castTimer));
 		setAnimation(m_animations.at(PuppetAnimationType::castFrostBalt));
+	}
+}
+
+void CPlayer::castFireBalt()
+{
+	if (m_mana >= 20 && m_state == PuppetState::stay)
+	{
+		m_interruptionCastTime = 100;
+		m_castTimer = 0;
+		schedule(schedule_selector(CPlayer::castTimer));
+		setAnimation(m_animations.at(PuppetAnimationType::castFireBalt));
+	}
+}
+
+void CPlayer::useBonus(int bonusTag)
+{
+	switch (bonusTag)
+	{
+	case 1:
+		m_health += 10;
+		break;
+	case 2:
+		m_mana += 20;
+		break;
 	}
 }
 
@@ -140,20 +165,29 @@ int CPlayer::getManaCount() const
 
 void CPlayer::castTimer(float /*dt*/)
 {
-	if (!m_puppetSprite->getActionByTag(1) || m_state != PuppetState::stay)
+	if (m_state != PuppetState::stay)
 	{
 		m_castTimer = 0;
 		unschedule(schedule_selector(CPlayer::castTimer));
 		stopAllActions();
 	}
-	if (m_castTimer < 60)
+	if (m_castTimer < m_interruptionCastTime)
 	{
 		++m_castTimer;
 	}
 	else
 	{
-		auto spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
-			+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20));
+		CSpellObject * spell;
+		if (m_puppetSprite->getActionByTag(1))
+		{
+			spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
+				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "ice_balts_4.png", 3);
+		}
+		else if (m_puppetSprite->getActionByTag(2))
+		{
+			spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
+				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "fire_balts.png", 4);
+		}
 		addChild(spell);
 		unschedule(schedule_selector(CPlayer::castTimer));
 		m_castTimer = 0;
@@ -181,4 +215,8 @@ void CPlayer::pushAnimations()
 	m_animations.insert({ PuppetAnimationType::castFrostBalt,
 		CAnimationKit::create("frost_balt_cast.png", Rect(113, 0, 113, 155), 3, true, 0.23f) });
 	m_animations.at(PuppetAnimationType::castFrostBalt)->getAction()->setTag(1);
+	m_animations.insert({ PuppetAnimationType::castFireBalt,
+		CAnimationKit::create("fire_balt_cast.png", Rect(113, 0, 113, 155), 3, true, 0.23f) });
+	m_animations.at(PuppetAnimationType::castFireBalt)->getAction()->setTag(2);
+
 }

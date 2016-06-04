@@ -17,7 +17,7 @@ void CLevel::loadMap(const char* mapname) {
 				auto tileSprite = m_meta->getTileAt(Point(x, y));
 				if (tileSprite)
 				{
-					tileSprite->setPhysicsBody(PhysicsBody::createBox(tileSprite->getContentSize(), PhysicsMaterial(1000, 0, 0)));
+					tileSprite->setPhysicsBody(PhysicsBody::createBox(tileSprite->getContentSize(), PhysicsMaterial(1000.f, 0, 0)));
 					tileSprite->getPhysicsBody()->setDynamic(false);
 					tileSprite->setVisible(false);
 				}

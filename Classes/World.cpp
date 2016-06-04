@@ -24,6 +24,8 @@ void CWorld::update()
 
 	m_playerPuppeteer->update(m_uiLayer->getJoystickPosition());
 
+	updateBonuses();
+
 	if (m_action->getNumberOfRunningActions() == 0)
 	{
 		m_action->setTag(0);
@@ -88,6 +90,8 @@ bool CWorld::init()
 		addChild(puppeteer);
 	});
 
+	createBonuses();
+
 	m_action = Sprite::create();
 	addChild(m_action);
 
@@ -131,8 +135,16 @@ bool CWorld::onContactBegin(PhysicsContact & contact)
 		|| (3 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask())
 		|| (3 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
 	{
-		a->setName("collideBalt");
-		b->setName("collideBalt");
+		a->setName("collideWithFrostBalt");
+		b->setName("collideWithFrostBalt");
+	}
+	else if ((1 == a->getCollisionBitmask() && 4 == b->getCollisionBitmask())
+		|| (2 == a->getCollisionBitmask() && 4 == b->getCollisionBitmask())
+		|| (4 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask())
+		|| (4 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
+	{
+		a->setName("collideWithFireBalt");
+		b->setName("collideWithFireBalt");
 	}
 
 	return true;
@@ -147,7 +159,43 @@ void CWorld::fightEnemyPuppeteerEvents(CEnemyPuppeteer * enemyPuppeteer)
 	}
 	if (enemyPuppeteer->isAttack())
 	{
-		m_playerPuppeteer->damagePuppet(3);
+		m_playerPuppeteer->damagePuppet(2);
+	}
+}
+
+void CWorld::createBonuses()
+{
+	auto healthBonuses = m_level->getObjects<CBonus>("healthBonuses");
+	for_each(healthBonuses.begin(), healthBonuses.end(), [this](CBonus * bonus) {
+		bonus->initWithFile("health_bonus.png");
+		bonus->setPhysicsBodyForBonus();
+		bonus->setTag(1);
+		addChild(bonus);
+	});
+
+	auto manaBonuses = m_level->getObjects<CBonus>("manaBonuses");
+	for_each(manaBonuses.begin(), manaBonuses.end(), [this](CBonus * bonus) {
+		bonus->initWithFile("mana_bonus.png");
+		bonus->setPhysicsBodyForBonus();
+		bonus->setTag(2);
+		addChild(bonus);
+	});
+	std::merge(healthBonuses.begin(), healthBonuses.end(), manaBonuses.begin(), manaBonuses.end(), std::back_inserter(m_bonuses));
+}
+
+void CWorld::updateBonuses()
+{
+	for (auto it = m_bonuses.begin(); it != m_bonuses.end();)
+	{
+		auto bonus = *it;
+		if (bonus->getBoundingBox().intersectsRect(m_playerPuppeteer->getPuppet()->getBoundingBox()) 
+			&& m_playerPuppeteer->puppetIsNeedBonus(bonus->getTag()))
+		{
+			bonus->removeFromParentAndCleanup(true);
+			m_bonuses.erase(it);
+			break;
+		}
+		++it;
 	}
 }
 

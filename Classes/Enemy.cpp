@@ -50,7 +50,7 @@ void CEnemy::initEnemy(cocos2d::Vec2 const &pos)
 	m_phantomeSprite = Sprite::create();
 	m_phantomeSprite->initWithFile("stay.png");
 	m_phantomeSprite->setVisible(false);
-	auto spriteBody = PhysicsBody::createEdgeBox(Size(70, 50), PhysicsMaterial(300, 0, 0));
+	auto spriteBody = PhysicsBody::createEdgeBox(Size(70, 50), PhysicsMaterial(300, 0, 0), 4);
 	spriteBody->setRotationEnable(false);
 	spriteBody->setCollisionBitmask(1);
 	spriteBody->setContactTestBitmask(true);
@@ -92,7 +92,7 @@ void CEnemy::update()
 		{
 			collisionDetectEvents();
 		}
-		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideBalt")
+		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithFrostBalt")
 		{
 			if (m_puppetSprite->getColor() != Color3B::BLUE)
 			{
@@ -103,6 +103,10 @@ void CEnemy::update()
 				hasDamaged(25);
 			}
 			attackedByFrost();
+		}
+		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithFireBalt")
+		{
+			hasDamaged(55);
 		}
 		m_phantomeSprite->getPhysicsBody()->setName("");
 		m_puppetSprite->setPosition(m_phantomeSprite->getPosition());
