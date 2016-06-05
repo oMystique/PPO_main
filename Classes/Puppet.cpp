@@ -34,6 +34,10 @@ void CPuppet::hasDamaged(int healthCount)
 
 void CPuppet::move(PuppetState const & state)
 {
+	if (m_health < 0)
+	{
+		return;
+	}
 	int sign = static_cast<int>(state);
 	if (((sign > 0) && (getVelocity().x < m_velocityX))
 		|| ((sign < 0) && (getVelocity().x > -m_velocityX)))
@@ -41,7 +45,7 @@ void CPuppet::move(PuppetState const & state)
 		m_puppetSprite->setScaleX(0.6f * sign);
 		setVelocity(Vec2(getVelocity().x + 20 * sign, getVelocity().y));
 	}
-	if (state != m_state)
+	if (state != m_state && isCanJump())
 	{
 		setAnimation(m_animations.at(PuppetAnimationType::move));
 	}

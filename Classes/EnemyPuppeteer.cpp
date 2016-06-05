@@ -1,4 +1,5 @@
 #include "EnemyPuppeteer.h"
+#include "AudioEngine.h" 
 
 USING_NS_CC;
 
@@ -33,17 +34,24 @@ void CEnemyPuppeteer::updateAttackTimer(float /*dt*/)
 
 void CEnemyPuppeteer::unscheduleAttackTimer()
 {
-	if (m_attackTimer > 19)
+	if (m_attackTimer > m_enemy->getAttackTimerLimit())
 	{
 		unschedule(schedule_selector(CEnemyPuppeteer::updateAttackTimer));
+		if (m_enemy->getTag() == 2)
+		{
+			m_enemy->castBalt();
+		}
 		m_attackTimer = 0;
 	}
 }
 
 void CEnemyPuppeteer::scheduleAttackTimer()
 {
-	if (m_attackTimer == 0)
+	if (m_attackTimer == 0 && m_enemy->getHealthCount() > 0)
 	{
+		int audio;
+		m_enemy->getTag() == 2 ? audio = experimental::AudioEngine::play2d("enemy_cast_sound.mp3") 
+			: audio = experimental::AudioEngine::play2d("kickHit.ogg");
 		schedule(schedule_selector(CEnemyPuppeteer::updateAttackTimer));
 		m_attackTimer = 1;
 		m_enemyIsAttack = true;
@@ -67,7 +75,7 @@ void CEnemyPuppeteer::attackTarget(bool playerIsAttacked)
 {
 	if (playerIsAttacked)
 	{
-		damagePuppet(20);
+		damagePuppet(15);
 	}
 	m_enemy->action(PuppetState::attack);
 	scheduleAttackTimer();
@@ -80,7 +88,7 @@ CEnemy *CEnemyPuppeteer::getPuppet() const
 
 bool CEnemyPuppeteer::isAttack() const
 {
-	if (m_enemyIsAttack)
+	if (m_enemyIsAttack && m_enemy->getTag() == 1)
 	{
 		m_enemyIsAttack = false;
 		return true;
@@ -116,7 +124,9 @@ void CEnemyPuppeteer::interactWithPlayer(cocos2d::Vec2 const & playerPos, cocos2
 {
 	if (abs(m_enemy->getPosition().x - playerPos.x) < 500)
 	{
-		if (m_enemy->getBoundingBox().intersectsRect(playerRect))
+		if (m_enemy->getBoundingBox().intersectsRect(playerRect)
+			|| (m_enemy->getTag() == 2 
+				&& abs(m_enemy->getPosition().x - playerPos.x) < 200))
 		{
 			attackTarget(playerIsAttacked);
 		}

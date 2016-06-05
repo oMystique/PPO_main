@@ -1,12 +1,13 @@
 #include "SpellObject.h"
 #include "AnimationKit.h"
 
+#include "AudioEngine.h" 
 USING_NS_CC;
 
-CSpellObject * CSpellObject::create(float velocityX, cocos2d::Vec2 const &spawnPos, std::string const &imagePath, int collisionBitmask)
+CSpellObject * CSpellObject::create(float velocityX, cocos2d::Vec2 const &spawnPos, std::string const &imagePath, int collisionBitmask, std::string const &dieImagePath)
 {
 	CSpellObject * spellObject = new (std::nothrow) CSpellObject();
-	if (spellObject && spellObject->init(velocityX, spawnPos, imagePath, collisionBitmask))
+	if (spellObject && spellObject->init(velocityX, spawnPos, imagePath, collisionBitmask, dieImagePath))
 	{
 		spellObject->autorelease();
 		return spellObject;
@@ -18,23 +19,29 @@ CSpellObject * CSpellObject::create(float velocityX, cocos2d::Vec2 const &spawnP
 
 void CSpellObject::update(float dt)
 {
-	auto velocityX = m_phantomeSprite->getPhysicsBody()->getVelocity().x;
-	if (abs(velocityX) < 600)
+	if (m_dieTimer == 0)
 	{
-		m_phantomeSprite->getPhysicsBody()->setVelocity({ velocityX * 1.1f, 0 });
-	}
-	m_sprite->setPosition(m_phantomeSprite->getPosition());
-	auto name = m_phantomeSprite->getPhysicsBody()->getName();
-	if (name == "collideWithFrostBalt" || 
-		name == "collideWithFireBalt"  ||
-		name == "cillideWithArcanBlast" )
-	{
-		removeFromParentAndCleanup(true);
+		auto velocityX = m_phantomeSprite->getPhysicsBody()->getVelocity().x;
+		if (abs(velocityX) < 600)
+		{
+			m_phantomeSprite->getPhysicsBody()->setVelocity({ velocityX * 1.1f, 0 });
+		}
+		m_sprite->setPosition(m_phantomeSprite->getPosition());
+		auto name = m_phantomeSprite->getPhysicsBody()->getName();
+		if (name == "collideWithFrostBalt" ||
+			name == "collideWithFireBalt" ||
+			name == "collideWithArcanBlast" ||
+			name == "collideWithEnemyBalt")
+		{
+			die();
+		}
 	}
 }
 
-bool CSpellObject::init(float velocityX, cocos2d::Vec2 const &spawnPos, std::string const &imagePath, int collisionBitmask)
+bool CSpellObject::init(float velocityX, cocos2d::Vec2 const &spawnPos, std::string const &imagePath, int collisionBitmask, std::string const &dieImagePath)
 {
+	m_dieImagePath = dieImagePath;
+
 	m_sprite = Sprite::create();
 	velocityX > 0 ? m_sprite->setScale(0.6f) : m_sprite->setScale(-0.6f);
 	m_sprite->setPosition(spawnPos);
@@ -62,4 +69,26 @@ bool CSpellObject::init(float velocityX, cocos2d::Vec2 const &spawnPos, std::str
 	scheduleUpdate();
 
 	return true;
+}
+
+void CSpellObject::dieTimer(float dt)
+{
+	if (m_dieTimer < 40)
+	{
+		++m_dieTimer;
+	}
+	else
+	{
+		//unschedule(schedule_selector(CSpellObject::dieTimer));
+		removeFromParentAndCleanup(true);
+	}
+}
+
+void CSpellObject::die()
+{
+	m_dieTimer = 1;
+	m_sprite->stopAllActions();
+	m_sprite->runAction(CAnimationKit::create(m_dieImagePath, Rect(150, 0, 150, 106), 6, false, 0.07f)->getAction());
+	m_phantomeSprite->setPosition(Vec2(0, 0));
+	schedule(schedule_selector(CSpellObject::dieTimer));
 }

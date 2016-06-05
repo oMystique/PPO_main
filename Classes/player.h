@@ -18,6 +18,7 @@ public:
 	void arcaneOperate();
 	void castFrostBalt();
 	void castFireBalt();
+	void castArcanBlast();
 
 	void useBonus(int bonusTag);
 

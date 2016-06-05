@@ -1,5 +1,7 @@
 #include "World.h"
 #include "UILayer.h"
+#include "AudioEngine.h" 
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -54,8 +56,9 @@ int CWorld::getPlayerManaCount() const
 
 void CWorld::createFireCircle()
 {
-	if (getPlayerManaCount() >= 30)
+	if (getPlayerManaCount() >= 40)
 	{
+		auto audio = experimental::AudioEngine::play2d("fire_nova_sound_.mp3");
 		auto m_actionAnim = CAnimationKit::create("cast_fire_circle.png", Rect(540, 0, 540, 198), 6, false, 0.15f);
 		m_actionAnim->autorelease();
 		m_action->stopAllActions();
@@ -73,6 +76,8 @@ CPlayer * CWorld::getPlayer()
 
 bool CWorld::init()
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(
+		"Instrumental_Core_Other Worlds.mp3", true);
 	m_level = new CLevel();
 	m_level->loadMap("TileGameResources/map1.tmx");
 	addChild(m_level->getMap());
@@ -82,15 +87,13 @@ bool CWorld::init()
 	auto camera = Follow::create(m_cameraTarget, Rect::ZERO);
 	runAction(camera);
 
+	createBonuses();
+
 	m_playerPuppeteer = CPlayerPuppeteer::create(m_level->getPlayerPos("player"));
 	addChild(m_playerPuppeteer);
 
-	m_enemyPuppeteers = m_level->getObjects<CEnemyPuppeteer>("Enemies");
-	for_each(m_enemyPuppeteers.begin(), m_enemyPuppeteers.end(), [this](CEnemyPuppeteer * puppeteer) {
-		addChild(puppeteer);
-	});
+	createEnemyPuppeteers();
 
-	createBonuses();
 
 	m_action = Sprite::create();
 	addChild(m_action);
@@ -109,6 +112,7 @@ void CWorld::createFrostCircle()
 {
 	if (getPlayerManaCount() >= 5)
 	{
+		auto audio = experimental::AudioEngine::play2d("frost_nove_sound.ogg");
 		auto m_actionAnim = CAnimationKit::create("frost_circle.png", Rect(540, 0, 540, 198), 6, false, 0.13f);
 		m_actionAnim->autorelease();
 		m_action->stopAllActions();
@@ -138,6 +142,14 @@ bool CWorld::onContactBegin(PhysicsContact & contact)
 		a->setName("collideWithFrostBalt");
 		b->setName("collideWithFrostBalt");
 	}
+	else if ((1 == a->getCollisionBitmask() && 7 == b->getCollisionBitmask())
+		|| (2 == a->getCollisionBitmask() && 7 == b->getCollisionBitmask())
+		|| (7 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask())
+		|| (7 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
+	{
+		a->setName("collideWithArcanBlast");
+		b->setName("collideWithArcanBlast");
+	}
 	else if ((1 == a->getCollisionBitmask() && 4 == b->getCollisionBitmask())
 		|| (2 == a->getCollisionBitmask() && 4 == b->getCollisionBitmask())
 		|| (4 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask())
@@ -145,6 +157,22 @@ bool CWorld::onContactBegin(PhysicsContact & contact)
 	{
 		a->setName("collideWithFireBalt");
 		b->setName("collideWithFireBalt");
+	}
+	else if ((5 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask())
+		|| (2 == a->getCollisionBitmask() && 5 == b->getCollisionBitmask())
+		|| (10 == a->getCollisionBitmask() && 5 == b->getCollisionBitmask())
+		|| (5 == a->getCollisionBitmask() && 10 == b->getCollisionBitmask())
+		|| (5 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask())
+		|| (1 == a->getCollisionBitmask() && 5 == b->getCollisionBitmask())
+		|| (5 == a->getCollisionBitmask() && 4 == b->getCollisionBitmask())
+		|| (4 == a->getCollisionBitmask() && 5 == b->getCollisionBitmask())
+		|| (5 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask())
+		|| (3 == a->getCollisionBitmask() && 5 == b->getCollisionBitmask())
+		|| (5 == a->getCollisionBitmask() && 7 == b->getCollisionBitmask())
+		|| (7 == a->getCollisionBitmask() && 5 == b->getCollisionBitmask()))
+	{
+		a->setName("collideWithEnemyBalt");
+		b->setName("collideWithEnemyBalt");
 	}
 
 	return true;
@@ -165,8 +193,8 @@ void CWorld::fightEnemyPuppeteerEvents(CEnemyPuppeteer * enemyPuppeteer)
 
 void CWorld::createBonuses()
 {
-	auto healthBonuses = m_level->getObjects<CBonus>("healthBonuses");
-	for_each(healthBonuses.begin(), healthBonuses.end(), [this](CBonus * bonus) {
+	m_bonuses = m_level->getObjects<CBonus>("healthBonuses");
+	for_each(m_bonuses.begin(), m_bonuses.end(), [this](CBonus * bonus) {
 		bonus->initWithFile("health_bonus.png");
 		bonus->setPhysicsBodyForBonus();
 		bonus->setTag(1);
@@ -179,8 +207,31 @@ void CWorld::createBonuses()
 		bonus->setPhysicsBodyForBonus();
 		bonus->setTag(2);
 		addChild(bonus);
+		m_bonuses.push_back(bonus);
 	});
-	std::merge(healthBonuses.begin(), healthBonuses.end(), manaBonuses.begin(), manaBonuses.end(), std::back_inserter(m_bonuses));
+	//std::merge(healthBonuses.begin(), healthBonuses.end(),
+	//	manaBonuses.begin(), manaBonuses.end(),
+	//	std::back_inserter(m_bonuses));
+}
+
+void CWorld::createEnemyPuppeteers()
+{
+	m_enemyPuppeteers = m_level->getObjects<CEnemyPuppeteer>("meleeEnemies");
+	for_each(m_enemyPuppeteers.begin(), m_enemyPuppeteers.end(), [this](CEnemyPuppeteer * puppeteer) {
+		puppeteer->getPuppet()->pushMeleeEnemyAnimations();
+		addChild(puppeteer);
+	});
+
+	auto rangeEnemyPuppeteers = m_level->getObjects<CEnemyPuppeteer>("rangeEnemies");
+	for_each(rangeEnemyPuppeteers.begin(), rangeEnemyPuppeteers.end(), [this](CEnemyPuppeteer * puppeteer) {
+		puppeteer->getPuppet()->pushRangeEnemyAnimations();
+		addChild(puppeteer);
+		m_enemyPuppeteers.push_back(puppeteer);
+	});
+
+	//std::merge(rangeEnemyPuppeteers.begin(), rangeEnemyPuppeteers.end(),
+	//	meleeEnemyPuppeteers.begin(), meleeEnemyPuppeteers.end(),
+	//	std::back_inserter(m_enemyPuppeteers));
 }
 
 void CWorld::updateBonuses()

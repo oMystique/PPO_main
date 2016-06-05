@@ -57,7 +57,7 @@ cocos2d::Vec2 CLevel::getPlayerPos(std::string const & playerName)
 {
 	auto objectGroup = getMap()->objectGroupNamed("Objects");
 	auto spawnPoint = objectGroup->objectNamed(playerName);
-	auto playerPos = Vec2(spawnPoint.at("x").asFloat(), spawnPoint.at("y").asFloat() + 150);
+	auto playerPos = Vec2(spawnPoint.at("x").asFloat(), spawnPoint.at("y").asFloat());
 	return playerPos;
 }
 

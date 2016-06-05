@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "SpellObject.h"
 
 USING_NS_CC;
 
@@ -30,14 +31,14 @@ void CEnemy::dieTimer(float dt)
 	}
 }
 
-void CEnemy::pushAnimations()
+void CEnemy::pushMeleeEnemyAnimations()
 {
 	m_animations.insert({ PuppetAnimationType::move,
 		CAnimationKit::create("easy_enemy_walk.png", Rect(150, 0, 150, 106), 2, true, 0.2f) });
 	m_animations.insert({ PuppetAnimationType::meleeAttack,
 		CAnimationKit::create("easyFight.png", Rect(150, 0, 150, 106), 2, true, 0.2f) });
-	m_animations.insert({ PuppetAnimationType::die,
-		CAnimationKit::create("unitDie.png", Rect(111, 0, 111, 118), 14, false, 0.11f) });
+	setTag(1);
+	setAnimation(m_animations.at(PuppetAnimationType::move));
 }
 
 void CEnemy::initEnemy(cocos2d::Vec2 const &pos)
@@ -61,8 +62,9 @@ void CEnemy::initEnemy(cocos2d::Vec2 const &pos)
 	m_phantomeSprite->setPosition(pos);
 	addChild(m_phantomeSprite);
 
-	pushAnimations();
-	setAnimation(m_animations.at(PuppetAnimationType::move));
+	m_animations.insert({ PuppetAnimationType::die,
+		CAnimationKit::create("unitDie.png", Rect(111, 0, 111, 118), 14, false, 0.11f) });
+
 	m_state = PuppetState::moveLeft;
 }
 
@@ -94,19 +96,15 @@ void CEnemy::update()
 		}
 		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithFrostBalt")
 		{
-			if (m_puppetSprite->getColor() != Color3B::BLUE)
-			{
-				hasDamaged(15);
-			}
-			else
-			{
-				hasDamaged(25);
-			}
-			attackedByFrost();
+			collideByFrostBalt();
 		}
 		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithFireBalt")
 		{
-			hasDamaged(55);
+			hasDamaged(60);
+		}
+		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithArcanBlast")
+		{
+			hasDamaged(12);
 		}
 		m_phantomeSprite->getPhysicsBody()->setName("");
 		m_puppetSprite->setPosition(m_phantomeSprite->getPosition());
@@ -141,6 +139,28 @@ void CEnemy::attackedByFire()
 	schedule(schedule_selector(CEnemy::updateDebuffTimer));
 }
 
+int CEnemy::getAttackTimerLimit()
+{
+	return getTag() == 1 ? 19 : 90;
+}
+
+void CEnemy::castBalt()
+{
+	auto spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
+		+ Vec2((getBoundingBox().size.width) * (m_puppetSprite->getScaleX()), 0), "range_enemy_balts.png", 5, "enemy_cast_die.png");
+	addChild(spell);
+}
+
+void CEnemy::pushRangeEnemyAnimations()
+{
+	m_animations.insert({ PuppetAnimationType::move,
+		CAnimationKit::create("enemy_range_move.png", Rect(150, 0, 150, 106), 6, true, 0.16f) });
+	m_animations.insert({ PuppetAnimationType::meleeAttack,
+		CAnimationKit::create("enemy_range_cast_anim.png", Rect(150, 0, 150, 106), 2, true, 0.16f) });
+	setTag(2);
+	setAnimation(m_animations.at(PuppetAnimationType::move));
+}
+
 PuppetState CEnemy::SwitchMoveDirection(PuppetState const & state)
 {
 	switch (state)
@@ -162,7 +182,7 @@ void CEnemy::die()
 
 void CEnemy::attack()
 {
-	if (m_state != PuppetState::attack)
+	if (m_state != PuppetState::attack && m_health > 0)
 	{
 		setVelocity(Vec2(0, getVelocity().y));
 		m_state = PuppetState::attack;
@@ -196,6 +216,19 @@ void CEnemy::unscheduleDebuffTimer()
 		m_puppetSprite->setColor(Color3B::WHITE);
 		m_velocityX = 200;
 	}
+}
+
+void CEnemy::collideByFrostBalt()
+{
+	if (m_puppetSprite->getColor() != Color3B::BLUE)
+	{
+		hasDamaged(15);
+	}
+	else
+	{
+		hasDamaged(30);
+	}
+	attackedByFrost();
 }
 
 bool CEnemy::isCanJump() const

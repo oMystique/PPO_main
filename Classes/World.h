@@ -25,6 +25,7 @@ private:
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	void fightEnemyPuppeteerEvents(CEnemyPuppeteer * enemyPuppeteer);
 	void createBonuses();
+	void createEnemyPuppeteers();
 	void updateBonuses();
 	void updateEnemyPuppeteers();
 private:

@@ -13,16 +13,20 @@ public:
 	void update()override;
 	void attackedByFrost();
 	void attackedByFire();
+	int getAttackTimerLimit();
+	void castBalt();
+	void pushMeleeEnemyAnimations();
+	void pushRangeEnemyAnimations();
 private:
 	static PuppetState SwitchMoveDirection(PuppetState const &state);
 	void die();
 	void attack();
 	void dieTimer(float dt);
-	void pushAnimations();
 	void initEnemy(cocos2d::Vec2 const &pos);
 	void updateDebuffTimer(float dt);
 	void collisionDetectEvents();
 	void unscheduleDebuffTimer();
+	void collideByFrostBalt();
 	bool isCanJump()const override;
 private:
 	int m_debuffTimer = 0;

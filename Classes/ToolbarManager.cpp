@@ -65,7 +65,7 @@ CToolbar * CToolbarManager::createArcaneToolbar(cocos2d::Size const & visibleSiz
 	auto m_toolbar = CToolbar::create();
 
 	auto arcane = m_toolbar->createButton(Point(visibleSize.width * 0.83f, visibleSize.height * 0.32f), Rect(0, 0, 64.0f, 64.0f), "arcane_blast");
-	arcane->getButton()->m_onClick.connect(boost::bind(&CPlayer::castFrostBalt, player));
+	arcane->getButton()->m_onClick.connect(boost::bind(&CPlayer::castArcanBlast, player));
 	m_toolbar->appendButton(arcane);
 
 	return m_toolbar;

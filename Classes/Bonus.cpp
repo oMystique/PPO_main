@@ -27,7 +27,7 @@ void CBonus::setPhysicsBodyForBonus()
 	scheduleUpdate();
 }
 
-void CBonus::update(float dt)
+void CBonus::update(float /*dt*/)
 {
 	if (abs(getPositionY() - m_soarStartPosY) > 43)
 	{

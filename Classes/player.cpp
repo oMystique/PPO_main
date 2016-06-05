@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "SpellObject.h"
+#include "AudioEngine.h" 
 
 USING_NS_CC;
 
@@ -34,6 +35,8 @@ void CPlayer::initPlayer(cocos2d::Vec2 const &pos)
 	spriteBody->setRotationEnable(false);
 	spriteBody->setDynamic(true);
 	spriteBody->setMass(50);
+	spriteBody->setContactTestBitmask(true);
+	spriteBody->setCollisionBitmask(10);
 
 	m_phantomeSprite->setPhysicsBody(spriteBody);
 	addChild(m_phantomeSprite);
@@ -51,6 +54,7 @@ void CPlayer::castFrostBalt()
 {
 	if (m_mana >= 10 && m_state == PuppetState::stay)
 	{
+		auto audio = experimental::AudioEngine::play2d("cast_fb_sound.mp3");
 		m_interruptionCastTime = 60;
 		m_castTimer = 0;
 		schedule(schedule_selector(CPlayer::castTimer));
@@ -62,10 +66,23 @@ void CPlayer::castFireBalt()
 {
 	if (m_mana >= 20 && m_state == PuppetState::stay)
 	{
+		auto audio = experimental::AudioEngine::play2d("fire_cast_sound.mp3");
 		m_interruptionCastTime = 100;
 		m_castTimer = 0;
 		schedule(schedule_selector(CPlayer::castTimer));
 		setAnimation(m_animations.at(PuppetAnimationType::castFireBalt));
+	}
+}
+
+void CPlayer::castArcanBlast()
+{
+	if (m_mana >= 5)
+	{
+		auto audio = experimental::AudioEngine::play2d("arcan_cast.ogg");
+		m_interruptionCastTime = 20;
+		m_castTimer = 0;
+		schedule(schedule_selector(CPlayer::castTimer));
+		setAnimation(m_animations.at(PuppetAnimationType::castArcanBlast));
 	}
 }
 
@@ -104,6 +121,7 @@ void CPlayer::action(PuppetState const & state)
 
 void CPlayer::knivesOperate()
 {
+	auto audio = experimental::AudioEngine::play2d("knives_operate.mp3");
 	setAnimation(m_animations.at(PuppetAnimationType::knivesOperate));
 }
 
@@ -120,8 +138,9 @@ void CPlayer::idle()
 void CPlayer::attack()
 {
 	auto anim = m_animations.at(PuppetAnimationType::meleeAttack);
-	if (anim->getAction()->isDone() || m_puppetSprite->getNumberOfRunningActions() == 0)
+	if (!m_puppetSprite->getActionByTag(30))
 	{
+		auto audio = experimental::AudioEngine::play2d("dagger_fight.mp3");
 		m_isMeleeAttack = true;
 		setAnimation(m_animations.at(PuppetAnimationType::meleeAttack));
 	}
@@ -139,6 +158,11 @@ void CPlayer::frostOperate()
 
 void CPlayer::update()
 {
+	if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithEnemyBalt")
+	{
+		m_health -= 10;
+		m_phantomeSprite->getPhysicsBody()->setName("");
+	}
 	m_puppetSprite->setPosition(m_phantomeSprite->getPosition());
 }
 
@@ -181,17 +205,24 @@ void CPlayer::castTimer(float /*dt*/)
 		if (m_puppetSprite->getActionByTag(1))
 		{
 			spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
-				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "ice_balts_4.png", 3);
+				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "ice_balts_4.png", 3, "frost_cast_die.png");
+			hasBurnedMana(10);
 		}
 		else if (m_puppetSprite->getActionByTag(2))
 		{
 			spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
-				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "fire_balts.png", 4);
+				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "fire_balts.png", 4, "fire_cast_die.png");
+			hasBurnedMana(10);
+		}
+		else if (m_puppetSprite->getActionByTag(3))
+		{
+			spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
+				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "arcan_balts.png", 7, "arcan_cast_die.png");
+			hasBurnedMana(3);
 		}
 		addChild(spell);
 		unschedule(schedule_selector(CPlayer::castTimer));
 		m_castTimer = 0;
-		hasBurnedMana(10);
 		setAnimation(m_animations.at(PuppetAnimationType::stay));
 	}
 }
@@ -206,6 +237,7 @@ void CPlayer::pushAnimations()
 		CAnimationKit::create("9.png", Rect(250, 0, 250, 250), 15, false, 0.07f) });
 	m_animations.insert({ PuppetAnimationType::meleeAttack,
 		CAnimationKit::create("test_attack_2.png", Rect(250, 0, 250, 164), 11, false, 0.06f) });
+	m_animations.at(PuppetAnimationType::meleeAttack)->getAction()->setTag(30);
 	m_animations.insert({ PuppetAnimationType::frostMageSwitch,
 		CAnimationKit::create("stay_anim_frost_2.png", Rect(130, 0, 130, 211), 7, false, 0.15f) });
 	m_animations.insert({ PuppetAnimationType::fireMageSwitch,
@@ -218,5 +250,7 @@ void CPlayer::pushAnimations()
 	m_animations.insert({ PuppetAnimationType::castFireBalt,
 		CAnimationKit::create("fire_balt_cast.png", Rect(113, 0, 113, 155), 3, true, 0.23f) });
 	m_animations.at(PuppetAnimationType::castFireBalt)->getAction()->setTag(2);
-
+	m_animations.insert({ PuppetAnimationType::castArcanBlast,
+		CAnimationKit::create("fire_balt_cast.png", Rect(113, 0, 113, 155), 2, true, 0.23f) });
+	m_animations.at(PuppetAnimationType::castArcanBlast)->getAction()->setTag(3);
 }
