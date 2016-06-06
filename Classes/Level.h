@@ -8,13 +8,13 @@
 class CLevel : public cocos2d::Object
 {
 public:
-	void loadMap(const char* name);
+	void loadMap(std::string const &mapname);
 	cocos2d::TMXTiledMap * getMap();
 
 	template <typename T>
 	std::vector<cocos2d::RefPtr<T>> getObjects(std::string const &name);
 
-	cocos2d::Vec2 getPlayerPos(std::string const &playerName);
+	cocos2d::Vec2 getObjectPos(std::string const &objectName);
 	
 	cocos2d::Point tileCoordinateToPosition(cocos2d::Size s, cocos2d::Point point);
 	cocos2d::Point positionToTileCoordinate(cocos2d::Size s, cocos2d::Point point);

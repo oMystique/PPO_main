@@ -4,7 +4,7 @@ USING_NS_CC;
 
 const double SCALE_FACTOR = 2;
 
-void CLevel::loadMap(const char* mapname) {
+void CLevel::loadMap(std::string const &mapname) {
 
 	map = TMXTiledMap::create(mapname);
 	{
@@ -53,10 +53,10 @@ TMXTiledMap * CLevel::getMap()
 	return map;
 }
 
-cocos2d::Vec2 CLevel::getPlayerPos(std::string const & playerName)
+cocos2d::Vec2 CLevel::getObjectPos(std::string const & objectName)
 {
 	auto objectGroup = getMap()->objectGroupNamed("Objects");
-	auto spawnPoint = objectGroup->objectNamed(playerName);
+	auto spawnPoint = objectGroup->objectNamed(objectName);
 	auto playerPos = Vec2(spawnPoint.at("x").asFloat(), spawnPoint.at("y").asFloat());
 	return playerPos;
 }

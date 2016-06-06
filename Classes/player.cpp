@@ -47,6 +47,7 @@ void CPlayer::initPlayer(cocos2d::Vec2 const &pos)
 
 void CPlayer::arcaneOperate()
 {
+	auto audio = experimental::AudioEngine::play2d("arcan_operate_.mp3");
 	setAnimation(m_animations.at(PuppetAnimationType::arcaneMageSwitch));
 }
 
@@ -76,7 +77,7 @@ void CPlayer::castFireBalt()
 
 void CPlayer::castArcanBlast()
 {
-	if (m_mana >= 5)
+	if (m_mana >= 3)
 	{
 		auto audio = experimental::AudioEngine::play2d("arcan_cast.ogg");
 		m_interruptionCastTime = 20;
@@ -148,11 +149,13 @@ void CPlayer::attack()
 
 void CPlayer::fireOperate()
 {
+	auto audio = experimental::AudioEngine::play2d("fire_operate_.mp3");
 	setAnimation(m_animations.at(PuppetAnimationType::fireMageSwitch));
 }
 
 void CPlayer::frostOperate()
 {
+	auto audio = experimental::AudioEngine::play2d("frost_operate_.mp3");
 	setAnimation(m_animations.at(PuppetAnimationType::frostMageSwitch));
 }
 
@@ -187,6 +190,30 @@ int CPlayer::getManaCount() const
 	return m_mana;
 }
 
+void CPlayer::castSpell()
+{
+	CSpellObject * spell;
+	if (m_puppetSprite->getActionByTag(1))
+	{
+		spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
+			+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "ice_balts_4.png", 3, "frost_cast_die.png");
+		hasBurnedMana(10);
+	}
+	else if (m_puppetSprite->getActionByTag(2))
+	{
+		spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
+			+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "fire_balts.png", 4, "fire_cast_die.png");
+		hasBurnedMana(10);
+	}
+	else if (m_puppetSprite->getActionByTag(3))
+	{
+		spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
+			+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "arcan_balts.png", 7, "arcan_cast_die.png");
+		hasBurnedMana(3);
+	}
+	addChild(spell);
+}
+
 void CPlayer::castTimer(float /*dt*/)
 {
 	if (m_state != PuppetState::stay)
@@ -201,26 +228,7 @@ void CPlayer::castTimer(float /*dt*/)
 	}
 	else
 	{
-		CSpellObject * spell;
-		if (m_puppetSprite->getActionByTag(1))
-		{
-			spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
-				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "ice_balts_4.png", 3, "frost_cast_die.png");
-			hasBurnedMana(10);
-		}
-		else if (m_puppetSprite->getActionByTag(2))
-		{
-			spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
-				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "fire_balts.png", 4, "fire_cast_die.png");
-			hasBurnedMana(10);
-		}
-		else if (m_puppetSprite->getActionByTag(3))
-		{
-			spell = CSpellObject::create(200 * m_puppetSprite->getScaleX(), getPosition()
-				+ Vec2(getBoundingBox().size.width * m_puppetSprite->getScaleX(), -20), "arcan_balts.png", 7, "arcan_cast_die.png");
-			hasBurnedMana(3);
-		}
-		addChild(spell);
+		castSpell();
 		unschedule(schedule_selector(CPlayer::castTimer));
 		m_castTimer = 0;
 		setAnimation(m_animations.at(PuppetAnimationType::stay));

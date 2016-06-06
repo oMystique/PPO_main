@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "MainScene.h"
+#include "MainMenuScene.h"
 
 USING_NS_CC;
 
@@ -76,7 +76,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	director->setDisplayStats(false);
 	
     // create a scene. it's an autorelease object
-    auto scene = CMainScene::createScene();
+    auto scene = CMainMenuScene::createScene();
 
     // run
     director->runWithScene(scene);

@@ -90,19 +90,19 @@ void CEnemy::update()
 	if (m_health > 0)
 	{
 		unscheduleDebuffTimer();
-		if (m_phantomeSprite->getPhysicsBody()->getName() == "toOther!")
+		if (physicsBodyNameIsEqual("toOther!"))
 		{
 			collisionDetectEvents();
 		}
-		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithFrostBalt")
+		else if (physicsBodyNameIsEqual("collideWithFrostBalt"))
 		{
 			collideByFrostBalt();
 		}
-		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithFireBalt")
+		else if (physicsBodyNameIsEqual("collideWithFireBalt"))
 		{
 			hasDamaged(60);
 		}
-		else if (m_phantomeSprite->getPhysicsBody()->getName() == "collideWithArcanBlast")
+		else if (physicsBodyNameIsEqual("collideWithArcanBlast"))
 		{
 			hasDamaged(12);
 		}
@@ -112,6 +112,7 @@ void CEnemy::update()
 	else if (m_isAlive && m_dieTimer == 0)
 	{
 		m_dieTimer = 1;
+		m_puppetSprite->setColor(Color3B::WHITE);
 		die();
 	}
 }

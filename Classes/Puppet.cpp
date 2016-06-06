@@ -84,3 +84,8 @@ bool CPuppet::isCanJump() const
 {
 	return getVelocity().y == 0 && jumpPos.y == 0;
 }
+
+bool CPuppet::physicsBodyNameIsEqual(std::string const & otherName)
+{
+	return m_phantomeSprite->getPhysicsBody()->getName() == otherName;
+}

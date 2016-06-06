@@ -12,7 +12,7 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/MainScene.cpp
+                   ../../Classes/MainScene.cpp \
 				   ../../Classes/AnimationKit.cpp \
 				   ../../Classes/ButtonsKit.cpp \
 					../../Classes/player.cpp \
@@ -21,7 +21,21 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 					../../Classes/SneakyInput/SneakyJoystick.cpp \
 					../../Classes/SneakyInput/SneakyButtonSkinnedBase.cpp \
 					../../Classes/SneakyInput/SneakyButton.cpp \
-					
+					../../Classes/Enemy.cpp \
+					../../Classes/Entities.cpp \
+					../../Classes/Level.cpp \
+					../../Classes/ToolbarManager.cpp \
+					../../Classes/Toolbar.cpp \
+					../../Classes/Lifebar.cpp \
+					../../Classes/EnemyPuppeteer.cpp \
+					../../Classes/PlayerPuppeteer.cpp \
+					../../Classes/Puppet.cpp \
+					../../Classes/World.cpp \
+					../../Classes/UILayer.cpp \
+					../../Classes/SpellObject.cpp \
+					../../Classes/Bonus.cpp \
+					../../Classes/MainMenuScene.cpp \
+				
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 # _COCOS_HEADER_ANDROID_BEGIN

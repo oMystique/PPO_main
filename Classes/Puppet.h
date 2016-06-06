@@ -46,6 +46,7 @@ protected:
 	cocos2d::Vec2 getVelocity()const;
 	void setVelocity(cocos2d::Vec2 const &velocity);
 	virtual bool isCanJump()const;
+	bool physicsBodyNameIsEqual(std::string const &otherName);
 protected:
 	cocos2d::Sprite* m_puppetSprite = nullptr;
 	cocos2d::Sprite* m_phantomeSprite = nullptr;

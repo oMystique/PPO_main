@@ -31,7 +31,7 @@ public:
 
 	void hasBurnedMana(int manaCount);
 private:
-
+	void castSpell();
 	void castTimer(float dt);
 	void pushAnimations();
 	void initPlayer(cocos2d::Vec2 const &pos);

@@ -55,12 +55,6 @@
     <Filter Include="src\Bonus">
       <UniqueIdentifier>{2bb80730-5e01-408a-84fd-1045ea5f0768}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Bonus\BonusPuppeteer">
-      <UniqueIdentifier>{52de213e-839b-40bc-a89c-a30910abed44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Bonus\BonusPuppet">
-      <UniqueIdentifier>{9ee79190-fee1-4b30-8df9-c62202bc331a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\IPuppeteer">
       <UniqueIdentifier>{ba1248f0-c2c1-4084-879b-8bd66ac00506}</UniqueIdentifier>
     </Filter>
@@ -78,6 +72,12 @@
     </Filter>
     <Filter Include="src\SpellObject">
       <UniqueIdentifier>{24a01c4d-eb16-4843-a631-d88caf831a0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Bonus\Bonus">
+      <UniqueIdentifier>{9ee79190-fee1-4b30-8df9-c62202bc331a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MainMenuScene">
+      <UniqueIdentifier>{81904194-22d7-4fdc-bd56-a8e0ff25ee72}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +144,12 @@
     <ClCompile Include="..\Classes\SpellObject.cpp">
       <Filter>src\SpellObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Bonus.cpp">
+      <Filter>src\Bonus\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenuScene.cpp">
+      <Filter>src\MainMenuScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -200,12 +206,6 @@
     <ClInclude Include="..\Classes\PlayerPuppeteer.h">
       <Filter>src\Player\PlayerPuppeteer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BonusPuppeteer.h">
-      <Filter>src\Bonus\BonusPuppeteer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BonusPuppet.h">
-      <Filter>src\Bonus\BonusPuppet</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\IPuppeteer.h">
       <Filter>src\IPuppeteer</Filter>
     </ClInclude>
@@ -220,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SpellObject.h">
       <Filter>src\SpellObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Bonus.h">
+      <Filter>src\Bonus\Bonus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainMenuScene.h">
+      <Filter>src\MainMenuScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

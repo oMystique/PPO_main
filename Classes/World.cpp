@@ -2,13 +2,15 @@
 #include "UILayer.h"
 #include "AudioEngine.h" 
 #include "SimpleAudioEngine.h"
+#include "MainMenuScene.h"
+#include <string>
 
 USING_NS_CC;
 
-CWorld * CWorld::create()
+CWorld * CWorld::create(int levelNumber)
 {
 	CWorld * world = new (std::nothrow) CWorld();
-	if (world && world->init())
+	if (world && world->init(levelNumber))
 	{
 		world->autorelease();
 		return world;
@@ -27,6 +29,18 @@ void CWorld::update()
 	m_playerPuppeteer->update(m_uiLayer->getJoystickPosition());
 
 	updateBonuses();
+
+	if (m_flag->getBoundingBox().intersectsRect(m_finish->getBoundingBox()))
+	{
+		m_flag->setPosition(m_finish->getPosition() + Vec2(0, 60));
+		m_flag->setScale(1);
+		m_isFinished = true;
+	}
+	else if (m_flag->getBoundingBox().intersectsRect(m_playerPuppeteer->getPuppet()->getBoundingBox()))
+	{
+		m_flag->setPosition(m_playerPuppeteer->getPuppetPos() + Vec2(10, 40));
+		m_flag->setScale(0.4);
+	}
 
 	if (m_action->getNumberOfRunningActions() == 0)
 	{
@@ -69,18 +83,34 @@ void CWorld::createFireCircle()
 	}
 }
 
-CPlayer * CWorld::getPlayer()
+CPlayer * CWorld::getPlayer()const
 {
 	return m_playerPuppeteer->getPuppet();
 }
 
-bool CWorld::init()
+bool CWorld::isFinished()const
+{
+	return m_isFinished;
+}
+
+bool CWorld::init(int levelNumber)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(
 		"Instrumental_Core_Other Worlds.mp3", true);
 	m_level = new CLevel();
-	m_level->loadMap("TileGameResources/map1.tmx");
+	m_level->loadMap("TileGameResources/map" + std::to_string(levelNumber) + ".tmx");
 	addChild(m_level->getMap());
+
+	m_flag = Sprite::create();
+	m_flag->initWithFile("flag.png");
+	m_flag->setPosition(m_level->getObjectPos("flag"));
+	addChild(m_flag);
+
+	m_finish = Sprite::create();
+	m_finish->initWithFile("finish.png");
+	m_finish->setPosition(m_level->getObjectPos("finish"));
+	m_finish->setScale(0.3);
+	addChild(m_finish);
 
 	m_cameraTarget = Sprite::create();
 	addChild(m_cameraTarget);
@@ -89,11 +119,10 @@ bool CWorld::init()
 
 	createBonuses();
 
-	m_playerPuppeteer = CPlayerPuppeteer::create(m_level->getPlayerPos("player"));
+	m_playerPuppeteer = CPlayerPuppeteer::create(m_level->getObjectPos("player"));
 	addChild(m_playerPuppeteer);
 
 	createEnemyPuppeteers();
-
 
 	m_action = Sprite::create();
 	addChild(m_action);
@@ -273,3 +302,4 @@ void CWorld::updateEnemyPuppeteers()
 		}
 	}
 }
+

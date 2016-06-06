@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="50" tilewidth="32" tileheight="32" nextobjectid="78">
+ <tileset firstgid="1" name="tilesheet_complete" tilewidth="32" tileheight="32" tilecount="1056">
+  <image source="tilesheet_complete.png" width="1408" height="768"/>
+ </tileset>
+ <tileset firstgid="1057" name="meta_tiles" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="2">
+  <image source="meta_tiles.png" width="67" height="34"/>
+  <tile id="0">
+   <properties>
+    <property name="Collidable" value="True"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Слой тайлов 1" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt19lOE3EYQPF/O9UbBRP1SgX0KdwSQVETl3fQxAVaTVzv9B1coNXE9U7fwRU0cXkBlzu9cQVNXK49JE4yDi1YYRgZzi85mSkDdNp8+ZqGIEmSJEmSJEmSpLy9iEJ4Sa/odZT33agookoIFVpEiyt5343mO/eUsuCe0mxyTykL7inpT4/ocQb/t6cUwlrqou5SBk+g/8IKWpl4fISO0hf6msHz7WGW9tIu2u1cFVYv9SUeX6LL+dxKWJ7T86rYttAADVKVavnejgpkiIapTg06xmflcTpBJ/3cnBWneB9PT/NenimHcLY8N/eThyu8/qt0ja7TE3pKz+h5G3MWf19IO8DPDtIhOkwDNEhVqhV0jm/wum5O89puMVO3CzxXad94P77TD/pZ+vt9Fn9fSDvHz87TBbpIQzRMdWoUZK5WMx9rqIu6qef3+aop5mZdk9+PzxeC9D5bQkupgzppWeI8fZy4dofu0j26Tw/oIY3QaEHmahuz0E/baQftTBxb6eVaH20tN//7hWY9s7CBNtIm2pw4Tx8nrr2j9/SBPtIn+kxjNF6QuWqmymzUaF8Uwv5o8jG+LrWjzsw06A29bXKMr0vtGGFmRqmD3dQZTT7G16V2jDEz41Psq/i69C9a7StpJlrtK2km3FfKgvtKWXBfKQvuK2XBfSVJkiRJkiRJkiRJkubKL8Bxc5w=
+  </data>
+ </layer>
+ <layer name="Слой тайлов 2" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztm8lPFEEYxbtnBhR00Kgn8aZX3GkFE4/qzeXietFE/w33NdEELvo/uC+QaAIXSDTRu8sNXG+QCNGjr6NfUnzzdU9jeoapnvdLXqp6qrqnq3y8qm4wCAghhJD2YyQMgtFwqe+CFI0peGqaviI5Uy0FQU9pqe+CFI0BeGqQviI5cxaeOkdfkZwZgqeG6SuSM2Pw1Dh9RXLifTkIPkAfoU9lu88MPp9NaCPEolwJggrUAXVW7D69+HxDQhshLllyKuYz1sYvXB9JRrLkVMwqeG4110BSh6w5JTCvSBay5pTAvCJJnIcvLkAXoUuL9AjzigjaR/ehB9BD6NEifdVqeTWEexnO6X56QzznQhOoT6o2vlvJ10eaVsurMYxnPMOYfkJzdfrsh6cOQDOoz6q2dny30kgfaZqZV4ehIwltK6CVUBXqie+rCcdFp5k+0jQrr77jO35A8XDimOiAOqFl0HJoF7QbGoAGoT1NOC4aS+kjTaPzSvy0Ft+xDtqCz7ZC26Dt0A5oZ+O+vtC0ko80kldvsQ95F9bfN29E301Ovt1F33tGf+0nIf6T1ZJR+o47b/K88Br1N06fy2i/4szFVdSvOcfXUb+RMvet7CON5NUvzMPvsP6++SBMcMgxwgT6Tjr9k/wkiI/6oM1BcXzlzps8L+hni8dof+LMyVPUnznHz1F/4Rz75KOsHMV9H4OOQyegk9CpOmNZn+Inoah5lRdVTEgPtCYsho/yYF8GgxQ1r/JiABMyCO31+P+4zOEfdL70t5S6cBM/H7fKtaV17rxxfhJF89VpDOAM1JWi7oylSK7pK2m+GoGHRsu1pXVuO/vqNgZwB+pPUZSxFMk1fSXNV1Pw0HS5trTObWdfvcQAXhm5kyWbktrkmr7SCr4qBX776isG9M3InaRMEv+40n3kmr5ieUPq1QqeSyq1ZZKf/tdX4i1f0XljSbe5eRWlZJmvaD/Jcayk/VUevorVFyzMLF+xsij6J+2nyOgrpZV3vmLllJRJ62AevnI95fv+ynqe0xkVKa+5/kvbc/lKmq8auQ66OeW7r/odf7hZo70jn+uMsnxV5LzKsg5a59XD9VUR9u3aI9pX1h7dPcdaR4ucV41cBy1v+UpSXllrYKQ81h+m77l8ZS4ldxq1DvYFC/dXUvqKlT06m7qUh7qNftYaStqXpOc6/Q496f17ZBzTV0T7pN57LO0/tz/zigiyxlnvG7T0+3ZrLaSvSEza74+zrH96zXT7EEIIIYQQQgghhBBCCGld/gCr6HG8
+  </data>
+ </layer>
+ <layer name="floor" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1zEOgzAQBEAKPkL+/8hUERFFAmEvwseM5Nby6laWPU0AAJyxzOuCNL2igl5RQa+ooFdUeOgVQe//QXcWCTpFmk6RplOk6RRp+kSSO4oEPSJBj0jo2qNPebaZ/7U6u0PWq873KudI6JTlm9EyjjSbkc6a0iVrxey2e+3d+449eume+exsj7wHRu+Rd/Dv/CkAAAAAAAAAAAAAAAAAAGC/JyrUGnU=
+  </data>
+ </layer>
+ <layer name="walls" width="150" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2kEOgjAQQFEWnsT7H9IViYFSCu1AKe8l7gxj228khmkCAOCM72f9gtZ0RQRdEUFXRNAVEXRFS3qitdKm/CdBqSNt6IgSRzvRFXvONKIrcs72oStSarpwn87sv4PaJnT1Xi07Sl1bV+8Q2VFq1lVd5Wbd0fbo36crO0rNvmLmPCM1787zvXPvW+tpLdFdPe13tqez2dPzZ40696f1tCXi7JZ7U7pXPXe01Pr8R+lpS+3Z5nrK3R+MvKd73rj2qDWPsJdHnmdIvddzEAAAAAAAAAAAAAAAAAAA4/kBT+MPcQ==
+  </data>
+ </layer>
+ <objectgroup name="Objects">
+  <object id="49" name="player" x="444" y="671.667" width="29" height="26"/>
+  <object id="52" name="finish" x="315.75" y="702" width="24.5" height="28"/>
+  <object id="53" name="flag" x="4716.5" y="175.5"/>
+ </objectgroup>
+ <objectgroup name="meleeEnemies">
+  <object id="60" name="meleeEnemy" x="1530.5" y="560"/>
+  <object id="61" name="meleeEnemy" x="1792.5" y="556"/>
+  <object id="62" name="meleeEnemy" x="2483.5" y="634.5"/>
+  <object id="63" name="meleeEnemy" x="2357" y="615.5"/>
+  <object id="64" name="meleeEnemy" x="2876" y="707"/>
+  <object id="65" name="meleeEnemy" x="3737.5" y="620.5"/>
+  <object id="66" name="meleeEnemy" x="3865" y="587.5"/>
+  <object id="67" name="meleeEnemy" x="2240.92" y="569.167"/>
+ </objectgroup>
+ <objectgroup name="rangeEnemies">
+  <object id="55" name="rangeEnemy" x="1114" y="570.667"/>
+  <object id="56" name="rangeEnemy" x="2012" y="557"/>
+  <object id="57" name="rangeEnemy" x="2614.67" y="676"/>
+  <object id="58" name="rangeEnemy" x="2944.67" y="710"/>
+  <object id="59" name="rangeEnemy" x="4382" y="444"/>
+ </objectgroup>
+ <objectgroup name="manaBonuses">
+  <object id="74" name="manaBonuses" x="2098.25" y="503.083"/>
+  <object id="75" name="manaBonuses" x="1402.5" y="496.417"/>
+  <object id="76" name="manaBonuses" x="3201.33" y="602.667"/>
+ </objectgroup>
+ <objectgroup name="healthBonuses">
+  <object id="70" name="healthBonus" x="1310.33" y="495.667"/>
+  <object id="71" name="healthBonus" x="3100.33" y="603.333"/>
+  <object id="72" name="healthBonus" x="3290.33" y="602.667"/>
+  <object id="73" name="healthBonus" x="2190.83" y="503.083"/>
+ </objectgroup>
+</map>
